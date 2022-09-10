@@ -1,0 +1,104 @@
+<?php
+	//color
+	include("color.php");
+	include("lang.php");
+	//banner
+	clear();
+	$banner = "                          ,--,                 \n                       ,---.'|            ,--. \n                ,---,. |   | :          ,--.'| \n       ,---.  ,'  .'  \\:   : |      ,--,:  : | \n      /__./|,---.' .' ||   ' :   ,`--.'`|  ' : \n ,---.;  ; ||   |  |: |;   ; '   |   :  :  | | \n/___/ \\  | |:   :  :  /'   | |__ :   |   \\ | : \n\\   ;  \\ ' |:   |    ; |   | :.'||   : '  '; | \n \\   \\  \\: ||   :     \\'   :    ;'   ' ;.    ; \n  ;   \\  ' .|   |   . ||   |  ./ |   | | \\   | \n   \\   \\   ''   :  '; |;   : ;   '   : |  ; .' \n    \\   `  ;|   |  | ; |   ,/    |   | '`--'   \n     :   \\ ||   :   /  '---'     '   : |       \n      '---\" |   | ,'             ;   |.'       \n            `----'               '---'         \n";
+	echo $cyan.$banner;
+	//info
+	$bot_ver = "0.0.1 beta";
+	$tool_ver = "0.0.1";
+	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
+	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
+	echo $magenta.$line1;
+	readline($white.$lang["please"].$lang["press_enter"]);
+	clear();
+	print_delay($white.$lang["hi"], 600);
+	sleep(2);
+	//clearLine();
+	clear();
+	print_delay($lang["thanks2"], 600); sleep(2); clear();
+	print_delay($lang["noti_check_sys"], 600); sleep(1); echo "\n";
+	echo $cyan.$line2;
+	
+	$minRam = 2.5;
+	$minMem = 2.3;
+	$check = true;
+	$tcl = $light_green;
+	echo $white." -Ram: ".$yellow.$lang["checking"];
+	sleep(1);
+	$t = getRam();
+	if((($t[0]/1024)/1024)/1024 >= $minRam) echo $white."\r -Ram: ".$tcl.$lang["good"];
+	else {
+		$check = false;
+		$tcl = $light_red;
+		echo $white."\r -Ram: ".$tcl.$lang["bad"];
+	}
+	echo $white." (".$lang["require"].": ".$light_green.$minRam.$white."Gb, ".$lang["available"].": ".$tcl.round((($t[0]/1024)/1024)/1024, 1).$white."Gb)\n";
+	
+	$tcl = $light_green;
+	echo $white." -Memory: ".$yellow.$lang["checking"];
+	sleep(1);
+	$t = getMem();
+	if(($t[2]/1000)/1000 >= $minMem) echo $white."\r -Memory: ".$tcl.$lang["good"];
+	else {
+		$check = false;
+		$tcl = $light_red;
+		echo $white."\r -Memory: ".$tcl.$lang["bad"];
+	}
+	echo $white." (".$lang["require"].": ".$light_green.$minMem.$white."Gb, ".$lang["available"].": ".$tcl.round(($t[2]/1000)/1000, 1).$white."Gb)\n";
+	echo $cyan.$line2;
+	if($check){
+		print_delay($green.$lang["check_done"], 600);
+		sleep(2);
+	} else {
+		print_delay($white.$lang["check_bad1"]."\n", 600);
+		print_delay($lang["check_bad2"], 600);
+		$cf = readline();
+		if(strtolower($cf) != "yes") {
+			print_delay($white."\n\n".$lang["check_bad3"]."\n", 600);
+			exit();
+		}
+	}
+	
+	//install
+	clear();
+	print_delay($lang["linux_install"]."\n", 500);
+	print_delay($yellow."250mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	sleep(1);
+	@system("echo \"deb https://termux.mentality.rip/termux-main stable main\" > \$PREFIX/etc/apt/sources.list && cat \$PREFIX/etc/apt/sources.list && pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu.sh -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	
+	//function
+	function getRam(){
+		$temp = array();
+		exec("free --byte", $a);
+		foreach(explode(" ", $a[1]) as $i) 
+			if(((int) $i) > 0){
+				array_push($temp, (int) $i);
+			}
+		return $temp;
+	}
+	function getMem(){
+		$temp = array();
+		$st = null;
+		exec("df", $a);
+		foreach($a as $i)
+			if(strpos($i, "/storage") && strpos($i, "/emulate")){
+				$st = $i;
+				break;
+			}
+		foreach(explode(" ", $st) as $i) 
+			if(((int) $i) > 0){
+				array_push($temp, (int) $i);
+			} else if(strpos($i, '%')) 
+				array_push($temp, $i);
+		return $temp;
+	}
+?>
