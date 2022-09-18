@@ -44,8 +44,13 @@
 			file_put_contents("./vbln/lang/data.txt", $codel);
 		}
 	}
+	echo "\n".$green;
 	@system("rm ./vbln/lang/".$codel.".php");
-	@system("wget -P ./vbln/lang/ ".$langLink.$codel.".php");
+	@system("wget -P ./vbln/lang/ ".$langLink.$codel.".php", $exitcode);
+	if($exitcode != 0) {
+		echo $cyan.$line2.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
+		exit();
+	}
 	include_once("./vbln/lang/".$codel.".php");
 	//banner
 	clear();
