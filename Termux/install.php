@@ -1,7 +1,52 @@
 <?php
 	//color
 	include("color.php");
-	include("lang.php");
+	//main
+	clear();
+	$langLink = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/lang/";
+	echo $red."Please choose language:\n";
+	echo $green."1. Tiếng Việt\n";
+	echo "2. English";;
+	//echo file_exists("./vbln/lang/data.txt");
+	$codel = "";
+	if(!file_exists("./vbln/lang/data.txt")){
+		echo $yellow."\n\nYou choose: ";
+		$in = readline();
+		while((int) $in < 1 ||(int) $in > 2){
+			echo $yellow."Please choose \"1\" or \"2\": ";
+			$in = readline();
+		}
+		switch ((int) $in) {
+			case 1:
+				$codel = "vi_VN";
+				break;
+			
+			case 2:
+				$codel = "en_US";
+				break;
+		}
+		file_put_contents("./vbln/lang/data.txt", $codel);
+	} else {
+		$codel = file_get_contents("./vbln/lang/data.txt");
+		echo $yellow."\n\nYou choose (you can continue with the language “".$codel."” by pressing “enter”): ";
+		$in = readline();
+		if((int) $in < 1 ||(int) $in > 2){
+			switch ((int) $in) {
+				case 1:
+					$codel = "vi_VN";
+					break;
+				
+				case 2:
+					$codel = "en_US";
+					break;
+			}
+			@system("rm ./vbln/lang/data.txt");
+			file_put_contents("./vbln/lang/data.txt", $codel);
+		}
+	}
+	@system("rm ./vbln/lang/".$codel.".php");
+	@system("wget -P ./vbln/lang/ ".$langLink.$codel.".php");
+	include_once("./vbln/lang/".$codel.".php");
 	//banner
 	clear();
 	$banner = "                          ,--,                 \n                       ,---.'|            ,--. \n                ,---,. |   | :          ,--.'| \n       ,---.  ,'  .'  \\:   : |      ,--,:  : | \n      /__./|,---.' .' ||   ' :   ,`--.'`|  ' : \n ,---.;  ; ||   |  |: |;   ; '   |   :  :  | | \n/___/ \\  | |:   :  :  /'   | |__ :   |   \\ | : \n\\   ;  \\ ' |:   |    ; |   | :.'||   : '  '; | \n \\   \\  \\: ||   :     \\'   :    ;'   ' ;.    ; \n  ;   \\  ' .|   |   . ||   |  ./ |   | | \\   | \n   \\   \\   ''   :  '; |;   : ;   '   : |  ; .' \n    \\   `  ;|   |  | ; |   ,/    |   | '`--'   \n     :   \\ ||   :   /  '---'     '   : |       \n      '---\" |   | ,'             ;   |.'       \n            `----'               '---'         \n";
