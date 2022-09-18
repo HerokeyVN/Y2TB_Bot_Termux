@@ -1,154 +1,29 @@
 <?php
-	//color
-	include("color.php");
-	//main
-	clear();
-	$langLink = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/lang/";
-	echo $red."Please choose language:\n";
-	echo $green."1. Tiếng Việt\n";
-	echo "2. English";;
-	//echo file_exists("./vbln/lang/data.txt");
-	$codel = "";
-	if(!file_exists("./vbln/lang/data.txt")){
-		echo $yellow."\n\nYou choose: ";
-		$in = readline();
-		while((int) $in < 1 ||(int) $in > 2){
-			echo $yellow."Please choose \"1\" or \"2\": ";
-			$in = readline();
-		}
-		switch ((int) $in) {
-			case 1:
-				$codel = "vi_VN";
-				break;
-			
-			case 2:
-				$codel = "en_US";
-				break;
-		}
-		file_put_contents("./vbln/lang/data.txt", $codel);
-	} else {
-		$codel = file_get_contents("./vbln/lang/data.txt");
-		echo $yellow."\n\nYou choose (you can continue with the language “".$codel."” by pressing “enter”): ";
-		$in = readline();
-		if((int) $in < 1 ||(int) $in > 2){
-			switch ((int) $in) {
-				case 1:
-					$codel = "vi_VN";
-					break;
-				
-				case 2:
-					$codel = "en_US";
-					break;
-			}
-			@system("rm ./vbln/lang/data.txt");
-			file_put_contents("./vbln/lang/data.txt", $codel);
-		}
-	}
-	echo "\n".$green;
-	@system("rm ./vbln/lang/".$codel.".php");
-	@system("wget -P ./vbln/lang/ ".$langLink.$codel.".php", $exitcode);
-	if($exitcode != 0) {
-		echo $cyan.$line2.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
-		exit();
-	}
-	include_once("./vbln/lang/".$codel.".php");
-	//banner
-	clear();
-	$banner = "                          ,--,                 \n                       ,---.'|            ,--. \n                ,---,. |   | :          ,--.'| \n       ,---.  ,'  .'  \\:   : |      ,--,:  : | \n      /__./|,---.' .' ||   ' :   ,`--.'`|  ' : \n ,---.;  ; ||   |  |: |;   ; '   |   :  :  | | \n/___/ \\  | |:   :  :  /'   | |__ :   |   \\ | : \n\\   ;  \\ ' |:   |    ; |   | :.'||   : '  '; | \n \\   \\  \\: ||   :     \\'   :    ;'   ' ;.    ; \n  ;   \\  ' .|   |   . ||   |  ./ |   | | \\   | \n   \\   \\   ''   :  '; |;   : ;   '   : |  ; .' \n    \\   `  ;|   |  | ; |   ,/    |   | '`--'   \n     :   \\ ||   :   /  '---'     '   : |       \n      '---\" |   | ,'             ;   |.'       \n            `----'               '---'         \n";
-	echo $cyan.$banner;
-	//info
-	$bot_ver = "0.0.1 beta";
-	$tool_ver = "0.0.1";
-	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
-	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
-	echo $magenta.$line1;
-	readline($white.$lang["please"].$lang["press_enter"]);
-	clear();
-	print_delay($white.$lang["hi"], 600);
-	sleep(2);
-	//clearLine();
-	clear();
-	print_delay($lang["thanks2"], 600); sleep(2); clear();
-	print_delay($lang["noti_check_sys"], 600); sleep(1); echo "\n";
-	echo $cyan.$line2;
-	
-	$minRam = 2.5;
-	$minMem = 2.3;
-	$check = true;
-	$tcl = $light_green;
-	echo $white." -Ram: ".$yellow.$lang["checking"];
-	sleep(1);
-	$t = getRam();
-	if((($t[0]/1024)/1024)/1024 >= $minRam) echo $white."\r -Ram: ".$tcl.$lang["good"];
-	else {
-		$check = false;
-		$tcl = $light_red;
-		echo $white."\r -Ram: ".$tcl.$lang["bad"];
-	}
-	echo $white." (".$lang["require"].": ".$light_green.$minRam.$white."Gb, ".$lang["available"].": ".$tcl.round((($t[0]/1024)/1024)/1024, 1).$white."Gb)\n";
-	
-	$tcl = $light_green;
-	echo $white." -Memory: ".$yellow.$lang["checking"];
-	sleep(1);
-	$t = getMem();
-	if(($t[2]/1000)/1000 >= $minMem) echo $white."\r -Memory: ".$tcl.$lang["good"];
-	else {
-		$check = false;
-		$tcl = $light_red;
-		echo $white."\r -Memory: ".$tcl.$lang["bad"];
-	}
-	echo $white." (".$lang["require"].": ".$light_green.$minMem.$white."Gb, ".$lang["available"].": ".$tcl.round(($t[2]/1000)/1000, 1).$white."Gb)\n";
-	echo $cyan.$line2;
-	if($check){
-		print_delay($green.$lang["check_done"], 600);
-		sleep(2);
-	} else {
-		print_delay($white.$lang["check_bad1"]."\n", 600);
-		print_delay($lang["check_bad2"], 600);
-		$cf = readline();
-		if(strtolower($cf) != "yes") {
-			print_delay($white."\n\n".$lang["check_bad3"]."\n", 600);
-			exit();
-		}
-	}
-	
-	//install
-	clear();
-	print_delay($lang["linux_install"]."\n", 500);
-	print_delay($yellow."250mb".$lang["use_mem"]."\n", 250);
-	echo $cyan.$line3.$green;
-	sleep(1);
-	@system("echo \"deb https://termux.mentality.rip/termux-main stable main\" > \$PREFIX/etc/apt/sources.list && cat \$PREFIX/etc/apt/sources.list && pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu.sh -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh");
-	echo ("\n");
-	print_delay($yellow.$lang["done"], 500);
-	sleep(1);
-	clear();
-	
-	
-	//function
-	function getRam(){
-		$temp = array();
-		exec("free --byte", $a);
-		foreach(explode(" ", $a[1]) as $i) 
-			if(((int) $i) > 0){
-				array_push($temp, (int) $i);
-			}
-		return $temp;
-	}
-	function getMem(){
-		$temp = array();
-		$st = null;
-		exec("df", $a);
-		foreach($a as $i)
-			if(strpos($i, "/storage") && strpos($i, "/emulate")){
-				$st = $i;
-				break;
-			}
-		foreach(explode(" ", $st) as $i) 
-			if(((int) $i) > 0){
-				array_push($temp, (int) $i);
-			} else if(strpos($i, '%')) 
-				array_push($temp, $i);
-		return $temp;
-	}
+@system("clear");
+//colors
+$red="\033[1;31m";
+$green="\033[1;32m";
+$yellow="\033[1;33m";
+$blue="\033[1;34m";
+$res="\033[1;35m";
+$nau="\033[1;36m";
+$while="\033[1;37m";
+//program
+$ggid="1-9v-_3Ye9SXAMvvTvlMSi-NzuQl6vfAp";
+$link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/install.php";
+if (file_exists("install.php") == false){
+  echo $red,("Start the installer download...\n");
+  //sleep(2);
+  echo $nau,("-------------------------\n"),$green;
+  @system("wget ".$link." && php install.php", $exitcode);
+  //echo $exitcode;
+}
+else {
+  echo $red,("Start the installer update...\n");
+  echo $nau,("-------------------------\n"),$green;
+  //sleep(2);
+  @system("rm ./install.php && wget ".$link." && php install.php", $exitcode);
+};
+if($exitcode != 0)
+	echo $nau,("-------------------------\n").$red."Can't connect to Github.com. Please check the internet and try again late!\n";
 ?>
