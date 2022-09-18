@@ -9,12 +9,10 @@
 	echo "2. English";;
 	//echo file_exists("./vbln/lang/data.txt");
 	$codel = "";
-	if(!file_exists("./vbln/lang/data.txt")){
-		echo $yellow."\n\nYou choose: ";
-		$in = readline();
+	if(!file_exists("./vbln/lang/data.txt")){ ;
+		$in = readline($yellow."\n\nYou choose: ");
 		while((int) $in < 1 ||(int) $in > 2){
-			echo $yellow."Please choose \"1\" or \"2\": ";
-			$in = readline();
+			$in = readline($yellow."Please choose \"1\" or \"2\": ");
 		}
 		switch ((int) $in) {
 			case 1:
@@ -28,9 +26,11 @@
 		file_put_contents("./vbln/lang/data.txt", $codel);
 	} else {
 		$codel = file_get_contents("./vbln/lang/data.txt");
-		echo $yellow."\n\nYou choose (you can continue with the language “".$codel."” by pressing “enter”): ";
-		$in = readline();
-		if((int) $in < 1 ||(int) $in > 2){
+		$in = readline($yellow."\n\nYou choose (you can continue with the language “".$codel."” by pressing “enter”): ");
+		while(((int) $in < 1 ||(int) $in > 2) && $in != ""){
+			$in = readline($yellow."Please choose \"1\", \"2\" or press “Enter”: ");
+		}
+		if((int) $in >= 1 && (int) $in <= 2){
 			switch ((int) $in) {
 				case 1:
 					$codel = "vi_VN";
