@@ -9,8 +9,7 @@ $res="\033[1;35m";
 $nau="\033[1;36m";
 $while="\033[1;37m";
 //program
-$ggid="1-9v-_3Ye9SXAMvvTvlMSi-NzuQl6vfAp";
-$link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/install.php";
+$link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Linux/install.php";
 if (file_exists("install.php") == false){
   echo $red,("Start the installer download...\n");
   //sleep(2);
