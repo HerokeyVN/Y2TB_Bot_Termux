@@ -23,6 +23,9 @@ $lang = array(
 	"check_bad3" => "I'm so sorry. But don't worry, you can still use our product in other platforms like Windows, Hosting, Linux (PC), MacOS(Coming soon).".$yellow." See you soon >~<",
 	"linux_install" => "Now I will start installing Ubuntu operating system to create a Root environment so that NodeJS can install and run smoothly.",
 	"update_pack" => "Update the package!",
+	"git_install" => "Install Git on Ubuntu...",
+	"php_install" => "Install PHP on Ubuntu",
+	"wget_install" => "Install Wget on Ubuntu",
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!"
 );
