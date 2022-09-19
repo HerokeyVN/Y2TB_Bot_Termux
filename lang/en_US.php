@@ -22,6 +22,7 @@ $lang = array(
 	"check_bad2" => "If you still want to continue, you can type \"yes\" to confirm. This could harm your phone\n".$yellow." Are you sure you want to continue? (yes/no)",
 	"check_bad3" => "I'm so sorry. But don't worry, you can still use our product in other platforms like Windows, Hosting, Linux (PC), MacOS(Coming soon).".$yellow." See you soon >~<",
 	"linux_install" => "Now I will start installing Ubuntu operating system to create a Root environment so that NodeJS can install and run smoothly.",
+	"update_pack" => "Update the package!",
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!"
 );
