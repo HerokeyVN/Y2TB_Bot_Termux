@@ -124,7 +124,78 @@
 	sleep(1);
 	clear();
 	
+	print_delay($green.$lang["update_pack"]."\n", 250);
+	print_delay($yellow."25mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"dpkg --configure -a && apt-get update\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
 	
+	print_delay($green.$lang["git_install"]."\n", 250);
+	print_delay($yellow."87mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install git\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["php_install"]."\n", 250);
+	print_delay($yellow."66mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install php\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["wget_install"]."\n", 250);
+	//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install wget\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["curl_install"]."\n", 250);
+	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install curl\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install curl build-essential\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["nodejs_install"]."\n", 250);
+	print_delay($yellow.">31mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"curl -sL https://deb.nodesource.com/setup_16.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["gcc_install"]."\n", 250);
+	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install gcc g++ make zip\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
+	
+	print_delay($green.$lang["gnu_install"]."\n", 250);
+	print_delay($yellow."156mb".$lang["use_mem"]."\n", 250);
+	echo $cyan.$line3.$green;
+	@system("echo \"echo y|apt install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev\"|bash ./start-ubuntu.sh");
+	echo ("\n");
+	print_delay($yellow.$lang["done"], 500);
+	sleep(1);
+	clear();
 	//function
 	function getRam(){
 		$temp = array();
