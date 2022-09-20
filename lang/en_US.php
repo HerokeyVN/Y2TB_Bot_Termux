@@ -24,8 +24,9 @@ $lang = array(
 	"linux_install" => "Now I will start installing Ubuntu operating system to create a Root environment so that NodeJS can install and run smoothly.",
 	"update_pack" => "Update the package!",
 	"git_install" => "Install Git on Ubuntu...",
-	"php_install" => "Install PHP on Ubuntu",
-	"wget_install" => "Install Wget on Ubuntu",
+	"php_install" => "Install PHP on Ubuntu...",
+	"wget_install" => "Install Wget on Ubuntu...",
+	"curl_install" => "Install Curl on Ubuntu...",
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!"
 );
