@@ -1,1 +1,18 @@
-echo y|termux-setup-storage && pkg upgrade -y && echo y|pkg install php && pkg install wget && wget https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/vbln.php && php vbln.php
+echo + Setup storage:
+echo 
+echo y|termux-setup-storage
+echo 
+echo + Start upgrade package:
+echo 
+pkg upgrade -y
+echo + Install PHP
+echo 
+echo y|pkg install php 
+echo 
+echo + Install Wget
+echo 
+pkg install Wget 
+echo 
+echo +Fetch install file
+echo
+wget https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/vbln.php && php vbln.php
