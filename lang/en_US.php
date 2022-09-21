@@ -31,6 +31,8 @@ $lang = array(
 	"gcc_install" => "Install GCC Package on Ubuntu...",
 	"gnu_install" => "Install GNU on Ubuntu...",
 	"clone_bot" => "Proceed to download the official Source Bot.",
+	"package_bot" => "Proceed to download the Package for Bot.",
+	"module_bot" => "Preparing to install Module for Bot.",
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!"
 );
