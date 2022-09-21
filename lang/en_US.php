@@ -30,6 +30,7 @@ $lang = array(
 	"nodejs_install" => "Install NodeJS 16.x(LTS) on Ubuntu...",
 	"gcc_install" => "Install GCC Package on Ubuntu...",
 	"gnu_install" => "Install GNU on Ubuntu...",
+	"clone_bot" => "Proceed to download the official Source Bot.",
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!"
 );
