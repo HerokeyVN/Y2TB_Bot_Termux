@@ -207,7 +207,8 @@
 	
 	print_delay($green.$lang["package_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package.json && wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json\"|bash ./start-ubuntu.sh");
+	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package.json|bash ./start-ubuntu.sh");
+	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -215,7 +216,7 @@
 	
 	print_delay($green.$lang["module_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"cd ./VBLN && sudo npm i\"|bash ./start-ubuntu.sh");
+	@system("echo \"cd ./VBLN && npm i\"|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
