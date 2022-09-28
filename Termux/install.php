@@ -207,6 +207,7 @@
 	
 	print_delay($green.$lang["package_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
+	@system("echo rm ./VBLN/package.json && echo rm ./VBLN/package-lock.json|bash ./start-ubuntu.sh")
 	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package.json|bash ./start-ubuntu.sh");
 	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
 	echo ("\n");
