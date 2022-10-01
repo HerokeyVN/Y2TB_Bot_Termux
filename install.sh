@@ -1,4 +1,5 @@
 clear
+rm ./install.sh
 echo + Setup storage:
 echo 
 echo y|termux-setup-storage
