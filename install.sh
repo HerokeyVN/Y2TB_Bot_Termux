@@ -10,7 +10,7 @@ echo y|pkg install php
 echo 
 echo + Install Wget
 echo 
-pkg install wget 
+echo y|pkg install wget 
 echo 
 echo +Fetch install file
 echo
