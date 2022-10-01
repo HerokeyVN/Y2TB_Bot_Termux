@@ -6,6 +6,7 @@ echo y|termux-setup-storage
 echo 
 echo + Start upgrade package:
 echo 
+pkg update
 pkg upgrade -y
 echo 
 echo + Install PHP
