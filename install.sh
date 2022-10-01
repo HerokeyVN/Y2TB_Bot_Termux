@@ -6,8 +6,8 @@ echo y|termux-setup-storage
 echo 
 echo + Start upgrade package:
 echo 
-pkg update -y --forcd_overwrite
-pkg upgrade -y --forcd_overwrite
+echo y|pkg update --forcd_overwrite
+echo y|pkg upgrade --forcd_overwrite
 echo 
 echo + Install PHP
 echo 
