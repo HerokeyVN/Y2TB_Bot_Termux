@@ -12,7 +12,7 @@ $while="\033[1;37m";
 //program
 $ggid="1-9v-_3Ye9SXAMvvTvlMSi-NzuQl6vfAp";
 $link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/install.php";
-$colorl = "https://github.com/HerokeyVN/VBLN_Bot_Termux/blob/main/color.php";
+$colorl = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/color.php";
 if (file_exists("install.php") == false){
   echo $red,("Start the installer download...\n");
   //sleep(2);
