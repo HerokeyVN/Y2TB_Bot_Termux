@@ -6,12 +6,12 @@ echo y|termux-setup-storage
 echo 
 echo + Start update package:
 echo 
-pkg upgrade -n
+pkg install openssl
+echo ""|pkg upgrade
 echo 
 echo + Install PHP
 echo 
 pkg install php -y
-pkg install openssl -y
 echo 
 echo +Fetch install file
 echo
