@@ -15,14 +15,14 @@ if (file_exists("install.php") == false){
   echo $red,("Start the installer download...\n");
   //sleep(2);
   echo $nau,("-------------------------\n"),$green;
-  @system("wget ".$link, $exitcode);
+  @system("curl ".$link." --output install.php", $exitcode);
   //echo $exitcode;
 }
 else {
   echo $red,("Start the installer update...\n");
   echo $nau,("-------------------------\n"),$green;
   //sleep(2);
-  @system("rm ./install.php && wget ".$link."", $exitcode);
+  @system("rm ./install.php && curl ".$link." --output install.php", $exitcode);
 };
 if($exitcode != 0)
 	echo $nau,("-------------------------\n").$red."Can't connect to Github.com. Please check the internet and try again late!\n";
