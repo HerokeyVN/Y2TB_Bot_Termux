@@ -12,10 +12,6 @@ echo + Install PHP
 echo 
 apt install php -y
 echo 
-echo + Install Wget
-echo 
-apt install wget -y
-echo 
 echo +Fetch install file
 echo
-wget https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/vbln.php
+curl https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/vbln.php --output vbln.php
