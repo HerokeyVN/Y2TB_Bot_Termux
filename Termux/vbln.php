@@ -1,5 +1,6 @@
 <?php
 @system("clear");
+//cp -r /storage/0000-0000/Termux/* ~
 //colors
 $red="\033[1;31m";
 $green="\033[1;32m";
@@ -11,11 +12,13 @@ $while="\033[1;37m";
 //program
 $ggid="1-9v-_3Ye9SXAMvvTvlMSi-NzuQl6vfAp";
 $link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/install.php";
+$colorl = "https://github.com/HerokeyVN/VBLN_Bot_Termux/blob/main/color.php";
 if (file_exists("install.php") == false){
   echo $red,("Start the installer download...\n");
   //sleep(2);
   echo $nau,("-------------------------\n"),$green;
   @system("curl ".$link." --output install.php", $exitcode);
+  @system("curl ".$colorl." --output color.php", $exitcode);
   //echo $exitcode;
 }
 else {
@@ -23,6 +26,8 @@ else {
   echo $nau,("-------------------------\n"),$green;
   //sleep(2);
   @system("rm ./install.php && curl ".$link." --output install.php", $exitcode);
+  @system("curl ".$colorl." --output color.php", $exitcode);
+  //echo $exitcode;
 };
 if($exitcode != 0)
 	echo $nau,("-------------------------\n").$red."Can't connect to Github.com. Please check the internet and try again late!\n";
