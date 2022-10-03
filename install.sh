@@ -11,6 +11,7 @@ echo
 echo + Install PHP
 echo 
 apt install php -y
+pkg install openssl -y
 echo 
 echo +Fetch install file
 echo
