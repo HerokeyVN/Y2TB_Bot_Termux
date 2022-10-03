@@ -23,6 +23,7 @@
 				$codel = "en_US";
 				break;
 		}
+		system("mkdir -p ./vbln/lang && >./vbln/lang/data.txt");
 		file_put_contents("./vbln/lang/data.txt", $codel);
 	} else {
 		$codel = file_get_contents("./vbln/lang/data.txt");
@@ -207,9 +208,9 @@
 	
 	print_delay($green.$lang["package_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo rm ./VBLN/package.json && echo rm ./VBLN/package-lock.json|bash ./start-ubuntu.sh");
+	@system("echo \nrm ./VBLN/package.json && echo rm ./VBLN/package-lock.json\n|bash ./start-ubuntu.sh");
 	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package.json|bash ./start-ubuntu.sh");
-	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
+	//@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
