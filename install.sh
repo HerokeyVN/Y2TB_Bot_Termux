@@ -4,9 +4,9 @@ echo + Setup storage:
 echo 
 echo y|termux-setup-storage
 echo 
-echo + Start upgrade package:
+echo + Start update package:
 echo 
-pkg upgrade
+pkg upgrade -n
 echo 
 echo + Install PHP
 echo 
