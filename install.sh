@@ -6,15 +6,15 @@ echo y|termux-setup-storage
 echo 
 echo + Start upgrade package:
 echo 
-pkg update -y
+apt update -y
 echo 
 echo + Install PHP
 echo 
-pkg install php -y
+apt install php -y
 echo 
 echo + Install Wget
 echo 
-pkg install wget -y
+apt install wget -y
 echo 
 echo +Fetch install file
 echo
