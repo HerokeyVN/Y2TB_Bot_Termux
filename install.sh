@@ -11,6 +11,10 @@ echo
 echo + Install PHP
 echo
 pkg install php -y
+echo
+echo + Install Wget
+echo
+pkg install wget -y
 echo 
 echo +Fetch install file
 echo 
