@@ -157,7 +157,7 @@
 	sleep(1);
 	clear();
 	
-	print_delay($green.$lang["php_install"]."\n", 250);
+	/*print_delay($green.$lang["php_install"]."\n", 250);
 	print_delay($yellow."66mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
 	@system("echo \"echo y|apt install php\"|bash ./start-ubuntu.sh");
@@ -173,7 +173,7 @@
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
-	clear();
+	clear();*/
 	
 	print_delay($green.$lang["curl_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
