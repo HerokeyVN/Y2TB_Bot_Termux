@@ -80,4 +80,54 @@
 			usleep($t*100);
 		}
 	}
+    
+	function getListFile($folder, $scanAll, $arr) {
+	    //$fileList = [];
+	    $file = [];
+	    $folderr = [];
+        foreach (new DirectoryIterator($folder) as $fileInfo) {
+            if($fileInfo->isDot()) continue;
+            //print_r($arr);
+            //echo(array_search("cores", $arr)+1."\n");
+            if(array_search($fileInfo->getFilename(), $arr) !== false) continue;
+            $temp = ($fileInfo->getPath());
+            if($temp[strlen($temp)-1] != "/") $temp = $temp."/";
+            $temp = $temp.($fileInfo->getFilename());
+            if($fileInfo->isFile())     array_push($file, $temp);
+            elseif($fileInfo->isDir()) array_push($folderr, $temp);
+        }
+        
+        if($scanAll)
+            foreach($folderr as $i){
+                $temp = getListFile($i, $scanAll, $arr);
+                $file = array_merge($file, $temp["file"]);
+                $folderr = array_merge($folderr, $temp["folder"]);
+            }
+        return ["file"=>$file,"folder" => $folderr];
+    }
+    function xcopy($source, $dest, $permissions = 0755){
+        if (is_link($source)) {
+            return symlink(readlink($source), $dest);
+        }
+    
+        if (is_file($source)) {
+            return copy($source, $dest);
+        }
+    
+        if (!is_dir($dest)) {
+            mkdir($dest, $permissions);
+        }
+    
+        $dir = dir($source);
+        while (false !== $entry = $dir->read()) {
+            if ($entry == '.' || $entry == '..') {
+                continue;
+            }
+    
+            xcopy("$source/$entry", "$dest/$entry", $permissions);
+        }
+    
+        $dir->close();
+        return true;
+    }
 ?>
