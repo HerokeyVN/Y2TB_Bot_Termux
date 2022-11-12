@@ -154,7 +154,7 @@ Report issues at https://termux.com/issues\n");
 	}
 	
 	function ncf(){
-		global $lang, $default, $red, $yellow, $green, $cyan, $magenta, $red, $line4, $id;
+		global $lang, $default, $red, $yellow, $green, $cyan, $magenta, $red, $line4, $codel, $id;
 		if(!file_exists("./ubuntu-fs/root/VBLN/udata/config.json")){
 			$dfcf = file_get_contents("./ubuntu-fs/root/VBLN/core/util/defaultConfig.js");
 			$dfcf = (explode("return", $dfcf))[1];
@@ -176,6 +176,7 @@ Report issues at https://termux.com/issues\n");
     		if($act == 0) return;
     		if($act == 1){
     		    clear();
+    		    $config["bot_info"]["lang"] = $codel;
         		echo($cyan.$lang["mn_4"]."\n");
         		echo($magenta.$line4);
         		$temp = readline($cyan.$lang["askName"]." (".$yellow.$config["bot_info"]["botname"].$cyan."): ".$yellow);
