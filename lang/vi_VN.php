@@ -1,11 +1,11 @@
 <?php
 $lang = array(
-	"version" => "Phiên bản: ",
-	"sp_ver" => "Hỗ trợ VBLN Bot ",
-	"cre" => "Tool tạo bởi HerokeyVN",
-	"product" => "Một sản phẩm của VangBanLaNhat℠",
-	"m_info" => "Biết thêm thông tin tại https://VangBanLaNhat.ml/",
-	"thanks" => "Cảm ơn bạn rất nhiều vì đã sử dụng sản phẩm này: 3",
+	"version" => "Version: ",
+	"sp_ver" => "Support VBLN Bot ",
+	"cre" => "Tool create by HerokeyVN",
+	"product" => "A product of VangBanLaNhat℠",
+	"m_info" => "More information at https://VangBanLaNhat.ml/",
+	"thanks" => "Thank you so much for using this product :3",
 	"please" => "Vui lòng ",
 	"press_enter" => "nhấn Enter (nút <╝) để tiếp tục",
 	"hi" => "Xin chào, chào mừng bạn đến với VBLN bot UwU",
