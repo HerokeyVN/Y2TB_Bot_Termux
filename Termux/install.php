@@ -186,7 +186,7 @@
 	clear();
 	
 	print_delay($green.$lang["nodejs_install"]."\n", 250);
-	print_delay($yellow.">31mb".$lang["use_mem"]."\n", 250);
+	print_delay($yellow."124mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
 	@system("echo \"curl -sL https://deb.nodesource.com/setup_14.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu.sh");
 	echo ("\n");
