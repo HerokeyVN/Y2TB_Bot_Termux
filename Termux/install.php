@@ -63,6 +63,20 @@
 	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
 	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
 	echo $magenta.$line1;
+	//menu
+    $linkmn = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/menu.php";
+	if(file_exists("./menu.php")){
+		
+		print_delay($green.$lang["update_menu"]."", 250);
+		print_delay("..", 500);
+		@system("curl -silent ".$linkmn." --output menu.php", $exitcode);
+		echo(".\n");
+		if($exitcode != 0)
+			echo $magenta.$line1.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
+		else include("./menu.php");
+		exit();
+	}
+	//install
 	readline($white.$lang["please"].$lang["press_enter"]);
 	clear();
 	print_delay($white.$lang["hi"], 600);
@@ -223,6 +237,14 @@
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
 	clear();
+	
+	print_delay($green.$lang["update_menu"]."\n", 250);
+	print_delay("..", 500);
+	@system("curl -silent ".$linkmn." --output menu.php", $exitcode);
+	echo(".\n");
+	if($exitcode != 0)
+		echo $magenta.$line1.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
+	else include("./menu.php");
 	//function
 	function getRam(){
 		$temp = array();
