@@ -164,7 +164,7 @@
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
-	clear();
+	clear();*/
 	
 	print_delay($green.$lang["wget_install"]."\n", 250);
 	//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
@@ -173,7 +173,7 @@
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
-	clear();*/
+	clear();
 	
 	print_delay($green.$lang["curl_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
