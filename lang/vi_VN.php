@@ -112,18 +112,3 @@ $lang = array(
 	"syncTotal" => "Tổng số dữ liệu đã đồng bộ",
 	"stScanCore" => "Tiến hành scan file mặc định"
 );
-
-$temp = array_count_values($array);
-foreach(array_keys($temp) as $i) 
-    echo "Số".$i.": xuất hiện ".$temp[$i]." lần\n";
-
-$arrdem = [];
-$max = max($array);
-foreach($array as $i){
-    if(!array_key_exists($i, $arrdem)) $arrdem = array_merge($i => 1, $arrdem);
-    else $arrdem[$i]++;
-}
-
-foreach (array_keys($arrdem) as $i){
-    echo "Số".$i.": xuất hiện ".$arrdem[$i]." lần\n";
-}
