@@ -216,6 +216,12 @@
 	echo $cyan.$line3.$green;
 	@system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
 	echo ("\n");
+	while(!file_exists("./ubuntu-fs/root/VBLN/")){
+	    print_delay($green.$lang["botNotExit"]."\n", 250);
+	    echo $cyan.$line3.$green;
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
+	    echo ("\n");
+	}
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
 	clear();
