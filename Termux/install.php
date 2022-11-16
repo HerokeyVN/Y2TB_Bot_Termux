@@ -164,7 +164,7 @@
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
-	clear();
+	clear();*/
 	
 	print_delay($green.$lang["wget_install"]."\n", 250);
 	//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
@@ -173,7 +173,7 @@
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
-	clear();*/
+	clear();
 	
 	print_delay($green.$lang["curl_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
@@ -188,7 +188,7 @@
 	print_delay($green.$lang["nodejs_install"]."\n", 250);
 	print_delay($yellow."124mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"curl -sL https://deb.nodesource.com/setup_14.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu.sh");
+	@system("echo \"curl -sL https://deb.nodesource.com/setup_16.x | bash && echo y|apt install -y nodejs && npm i -g npm@6\"|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -216,6 +216,12 @@
 	echo $cyan.$line3.$green;
 	@system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
 	echo ("\n");
+	while(!file_exists("./ubuntu-fs/root/VBLN/")){
+	    print_delay($green.$lang["botNotExit"]."\n", 250);
+	    echo $cyan.$line3.$green;
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
+	    echo ("\n");
+	}
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
 	clear();
@@ -238,7 +244,7 @@
 	sleep(1);
 	clear();
 	
-	print_delay($green.$lang["update_menu"]."\n", 250);
+	print_delay($green.$lang["update_menu"], 250);
 	print_delay("..", 500);
 	@system("curl -silent ".$linkmn." --output menu.php", $exitcode);
 	echo(".\n");
