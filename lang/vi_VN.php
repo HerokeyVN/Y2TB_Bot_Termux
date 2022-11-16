@@ -31,6 +31,7 @@ $lang = array(
 	"gcc_install" => "Cài đặt Gói GCC trên Ubuntu...",
 	"gnu_install" => "Cài đặt GNU trên Ubuntu....",
 	"clone_bot" => "Tiến hành tải xuống Source Bot.",
+	"botNotExit" => "Không tìm thấy folder chứa Source Bot, tiến hành thử lại."
 	"package_bot" => "Tiến hành tải xuống gói hỗ trợ cho Bot.",
 	"module_bot" => "Chuẩn bị cài đặt Module cho Bot.",
 	"use_mem" => " bộ nhớ sẽ được sử dụng cho việc này!",
@@ -111,3 +112,18 @@ $lang = array(
 	"syncTotal" => "Tổng số dữ liệu đã đồng bộ",
 	"stScanCore" => "Tiến hành scan file mặc định"
 );
+
+$temp = array_count_values($array);
+foreach(array_keys($temp) as $i) 
+    echo "Số".$i.": xuất hiện ".$temp[$i]." lần\n";
+
+$arrdem = [];
+$max = max($array);
+foreach($array as $i){
+    if(!array_key_exists($i, $arrdem)) $arrdem = array_merge($i => 1, $arrdem);
+    else $arrdem[$i]++;
+}
+
+foreach (array_keys($arrdem) as $i){
+    echo "Số".$i.": xuất hiện ".$arrdem[$i]." lần\n";
+}
