@@ -1,3 +1,5 @@
+
+
 <?php
 	function ex(){
 		clear();
@@ -66,10 +68,14 @@ Report issues at https://termux.com/issues\n");
 			clear();
 			echo($green.$lang["pageLoad"]);
 			if(!array_key_exists($page, $totalList)){
-				$json = file_get_contents("https://api.maihuybao.repl.co/pluginstore?page=".$page);
+				$json = file_get_contents("https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Plugin/PluginInfo.json?page=".$page);
 				$json = json_decode($json, true);
-				$total = $json["status"]["pages"];
-				$totalList[$page] = $json["status"]["data"];
+				print_r($json);
+				//readline();
+				//$total = $json["status"]["pages"];
+				//$totalList[$page] = $json["status"]["data"];
+				$total = 2;
+				$totalList[$page] = $json;
 			}
 			clear();
 			echo($cyan.$lang["listPlugins"]."\n");
