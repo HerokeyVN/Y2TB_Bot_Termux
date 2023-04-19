@@ -69,7 +69,7 @@
 		
 		print_delay($green.$lang["update_menu"]."", 250);
 		print_delay("..", 500);
-		@system("curl -silent ".$linkmn." --output menu.php", $exitcode);
+		@system("rm ./menu.php && curl -silent ".$linkmn." --output menu.php", $exitcode);
 		echo(".\n");
 		if($exitcode != 0)
 			echo $magenta.$line1.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
