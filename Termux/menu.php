@@ -19,7 +19,7 @@ Subscribing to additional repositories:
  * Root:     pkg install root-repo
  * X11:      pkg install x11-repo
 
-Report issues at https://termux.com/issues\n".$yellow."\nType “php vbln.php” to launch the bot menu\n");
+Report issues at https://termux.com/issues\n\033[1;33m\nType “php vbln.php” to launch the bot menu\n");
 
 }
 
