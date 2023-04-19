@@ -1,7 +1,7 @@
 <?php
 function ex() {
+        global $yellow;
 	clear();
-	
 	echo("\033[39m\nWelcome to Termux!
 
 Community forum: https://termux.com/community
@@ -19,7 +19,7 @@ Subscribing to additional repositories:
  * Root:     pkg install root-repo
  * X11:      pkg install x11-repo
 
-Report issues at https://termux.com/issues\n".$yellow."\nType “php vbln.php” to launch the bot menu");
+Report issues at https://termux.com/issues\n".$yellow."\nType “php vbln.php” to launch the bot menu\n");
 
 }
 
