@@ -1,7 +1,7 @@
 <?php
 function ex() {
 	clear();
-	@system("exit");
+	@system("bash ~/../usr/etc/bash.bashrc");
 	echo("\033[39m\nWelcome to Termux!
 
 Community forum: https://termux.com/community
