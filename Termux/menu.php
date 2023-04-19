@@ -19,8 +19,8 @@ Subscribing to additional repositories:
  * Root:     pkg install root-repo
  * X11:      pkg install x11-repo
 
-Report issues at https://termux.com/issues\n");
-        @system("bash ../usr/etc/bash.bashrc");
+Report issues at https://termux.com/issues\n".$yellow."\nType “php vbln.php” to launch the bot menu");
+
 }
 
 function start() {
