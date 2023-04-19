@@ -1,6 +1,7 @@
 <?php
 function ex() {
 	clear();
+	@system("exit");
 	echo("\033[39m\nWelcome to Termux!
 
 Community forum: https://termux.com/community
