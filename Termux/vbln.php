@@ -16,7 +16,7 @@ $colorl = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/colo
 if (file_exists("install.php") == false) {
 	$content = file_get_contents("~/../usr/etc/bash.bashrc");
 	if(!strpos($content, "php vbln.php"))
-		file_put_contents("~/../usr/etc/bash.bashrc", "\necho ".$yellow."Type “php vbln.php” to launch the bot menu", FILE_APPEND)
+		file_put_contents("~/../usr/etc/bash.bashrc", "\necho ".$yellow."Type “php vbln.php” to launch the bot menu", FILE_APPEND);
 	echo $red,
 	("Start the installer download...\n");
 	//sleep(2);
