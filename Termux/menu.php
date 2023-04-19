@@ -1,7 +1,7 @@
 <?php
 function ex() {
 	clear();
-	@system("bash ~/../usr/etc/bash.bashrc");
+	
 	echo("\033[39m\nWelcome to Termux!
 
 Community forum: https://termux.com/community
@@ -20,6 +20,7 @@ Subscribing to additional repositories:
  * X11:      pkg install x11-repo
 
 Report issues at https://termux.com/issues\n");
+        @system("bash ../usr/etc/bash.bashrc");
 }
 
 function start() {
