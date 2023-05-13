@@ -430,7 +430,7 @@ function sync() {
 			$temp = getListFile("./ubuntu-fs/root/VBLN", true, ["node_modules", "core", ".git"]);
 			$temp2 = getListFile("./ubuntu-fs/root/VBLN", false, ["node_modules", "core", ".git"]);
 			foreach ($temp2["folder"] as $i) system("cp -r ".$i." ".$dir."VBLN/");
-			system("cp -r ./ubuntu-fs/root/VBLN/core/coreconfig.json ".$dir."VBLN/udata");
+			system("cp -r ./ubuntu-fs/root/VBLN/core/coreconfig.json ".$dir."VBLN/udata/");
 			echo($yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"])-7)." file & ".(count($temp["folder"]))." folder\n\n");
 			readline($default.$lang["please"].$lang["press_enter"]);
 		} elseif ($act == 3) {
