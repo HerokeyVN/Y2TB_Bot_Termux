@@ -426,6 +426,7 @@ function sync() {
 
 			echo($green.$lang["crFdSync"].": ".$green.$dir."\n");
 			echo($green.$lang["stSyncFrUbuntu"]."...\n");
+			if (file_exists($dir."VBLN/")) system("rm -r ".$dir."VBLN/");
 			system("mkdir -p ".$dir."VBLN/");
 			$temp = getListFile("./ubuntu-fs/root/VBLN", true, ["node_modules", "core", ".git"]);
 			$temp2 = getListFile("./ubuntu-fs/root/VBLN", false, ["node_modules", "core", ".git"]);
