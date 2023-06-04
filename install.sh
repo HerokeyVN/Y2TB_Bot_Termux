@@ -18,4 +18,4 @@ pkg install wget -y
 echo 
 echo +Fetch install file
 echo 
-curl https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/vbln.php --output vbln.php
+curl https://raw.githubusercontent.com/HerokeyVN/Y2TB_Bot_Termux/main/Termux/y2tb.php --output y2tb.php
