@@ -1,14 +1,14 @@
 <?php
 $lang = array(
 	"version" => "Version: ",
-	"sp_ver" => "Support VBLN Bot ",
+	"sp_ver" => "Support Y2TB Bot ",
 	"cre" => "Tool create by HerokeyVN",
 	"product" => "A product of VangBanLaNhat℠",
 	"m_info" => "More information at https://VangBanLaNhat.ml/",
 	"thanks" => "Thank you so much for using this product :3",
 	"please" => "Vui lòng ",
 	"press_enter" => "nhấn Enter (nút <╝) để tiếp tục",
-	"hi" => "Xin chào, chào mừng bạn đến với VBLN bot UwU",
+	"hi" => "Xin chào, chào mừng bạn đến với Y2TB bot UwU",
 	"thanks2" => "Tụi mình cảm ơn bạn rất nhiều vì đã sử dụng sản phẩm của chúng tớ (=^.^=)",
 	"noti_check_sys" => "Bây giờ, tớ sẽ kiểm tra xem điện thoại của bạn có phù hợp để cài đặt botchat này không nha:>",
 	"check_mem" => "Memory: ",
@@ -37,7 +37,7 @@ $lang = array(
 	"use_mem" => " bộ nhớ sẽ được sử dụng cho việc này!",
 	"done" => "Hoàn tất!",
 	//menu
-	"wellcome" => "Chào mừng đến với VBLN Bot!",
+	"wellcome" => "Chào mừng đến với Y2TB Bot!",
 	"continue" => "Vui lòng chọn hành động tiếp theo:",
 	"mn_exit" => "Thoát",
 	"mn_1" => "Khởi động Chat Bot",
