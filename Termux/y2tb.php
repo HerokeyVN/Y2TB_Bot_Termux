@@ -10,13 +10,15 @@ $res = "\033[1;35m";
 $nau = "\033[1;36m";
 $while = "\033[1;37m";
 //program
-$ggid = "1-9v-_3Ye9SXAMvvTvlMSi-NzuQl6vfAp";
-$link = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/install.php";
-$colorl = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/color.php";
+
+$link = "https://raw.githubusercontent.com/HerokeyVN/Y2TB_Bot_Termux/main/Termux/install.php";
+$colorl = "https://raw.githubusercontent.com/HerokeyVN/Y2TB_Bot_Termux/main/color.php";
 if (file_exists("install.php") == false) {
 	$content = file_get_contents("../usr/etc/bash.bashrc");
-	if(!strpos($content, "php vbln.php"))
-		file_put_contents("../usr/etc/bash.bashrc", "\necho \"".$yellow."Type “php vbln.php” to launch the bot menu\"", FILE_APPEND);
+	if(!strpos($content, "php y2tb.php") && !strpos($content, "php vbln.php"))
+		file_put_contents("../usr/etc/bash.bashrc", "\necho \"".$yellow."Type “php y2tb.php” to launch the bot menu\"", FILE_APPEND);
+	if(strpos($content, "php vbln.php"))
+		file_put_contents("../usr/etc/bash.bashrc", str_replace("vbln", "y2tb", $content));
 	echo $red,
 	("Start the installer download...\n");
 	//sleep(2);
