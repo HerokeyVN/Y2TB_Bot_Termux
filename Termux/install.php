@@ -58,7 +58,7 @@
 	$banner = "&&&&      &&             %    &&&&\n&&&&&&     &&           %   &&&&&&\n&&&&&&&&    &&         %  &&&&&&&&\n&&&&&&&&     &&       %   &&&&&&&&\n&&&&&&&&&&    &&     %  &&&&&&&&&&\n  &&&&&&&&     &&       &&&&&&&&\n    &&&&&&&&    &&    &&&&&&&&\n    &&&&&&&&%%  ..  %%&&&&&&&&\n      ########      &&&&&&&&\n        ########  ####&&&&\n        ########  ########\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n";
 	echo $cyan.$banner;
 	//info
-	$bot_ver = "1.0.1 beta";
+	$bot_ver = "1.0.2 beta";
 	$tool_ver = "0.0.2";
 	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
 	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
