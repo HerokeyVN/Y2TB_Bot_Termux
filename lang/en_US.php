@@ -1,14 +1,14 @@
 <?php
 $lang = array(
 	"version" => "Version: ",
-	"sp_ver" => "Support VBLN Bot ",
+	"sp_ver" => "Support Y2TB Bot ",
 	"cre" => "Tool create by HerokeyVN",
 	"product" => "A product of VangBanLaNhat℠",
 	"m_info" => "More information at https://VangBanLaNhat.ml/",
 	"thanks" => "Thank you so much for using this product :3",
 	"please" => "Please ",
 	"press_enter" => "press Enter (<╝ button) to continue!",
-	"hi" => "Hi, welcome to VBLN bot UwU",
+	"hi" => "Hi, welcome to Y2TB bot UwU",
 	"thanks2" => "We would like to thank you very much for choosing and using our products (=^.^=)",
 	"noti_check_sys" => "Now, I will check if your phone is suitable to install this botchat :>",
 	"check_mem" => "Memory: ",
@@ -37,7 +37,7 @@ $lang = array(
 	"use_mem" => " of memory will be used for this!",
 	"done" => "Done!",
 	//menu
-	"wellcome" => "Welcome to VBLN Bot!",
+	"wellcome" => "Welcome to Y2TB Bot!",
 	"continue" => "Please choose next action:",
 	"mn_exit" => "Exit",
 	"mn_1" => "Start Chat Bot",
