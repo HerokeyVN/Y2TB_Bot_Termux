@@ -3,13 +3,13 @@
 	include("color.php");
 	//main
 	clear();
-	$langLink = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/lang/";
+	$langLink = "https://raw.githubusercontent.com/HerokeyVN/Y2TB_Bot_Termux/main/lang/";
 	echo $red."Please choose language:\n";
 	echo $green."1. Tiếng Việt\n";
 	echo "2. English";;
-	//echo file_exists("./vbln/lang/data.txt");
+	//echo file_exists("./y2tb/lang/data.txt");
 	$codel = "";
-	if(!file_exists("./vbln/lang/data.txt")){ ;
+	if(!file_exists("./y2tb/lang/data.txt")){ ;
 		$in = readline($yellow."\n\nYou choose: ");
 		while((int) $in < 1 ||(int) $in > 2){
 			$in = readline($yellow."Please choose \"1\" or \"2\": ");
@@ -23,10 +23,10 @@
 				$codel = "en_US";
 				break;
 		}
-		system("mkdir -p ./vbln/lang && >./vbln/lang/data.txt");
-		file_put_contents("./vbln/lang/data.txt", $codel);
+		system("mkdir -p ./y2tb/lang && >./y2tb/lang/data.txt");
+		file_put_contents("./y2tb/lang/data.txt", $codel);
 	} else {
-		$codel = file_get_contents("./vbln/lang/data.txt");
+		$codel = file_get_contents("./y2tb/lang/data.txt");
 		$in = readline($yellow."\n\nYou choose (you can continue with the language “".$codel."” by pressing “enter”): ");
 		while(((int) $in < 1 ||(int) $in > 2) && $in != ""){
 			$in = readline($yellow."Please choose \"1\", \"2\" or press “Enter”: ");
@@ -41,30 +41,30 @@
 					$codel = "en_US";
 					break;
 			}
-			@system("rm ./vbln/lang/data.txt");
-			file_put_contents("./vbln/lang/data.txt", $codel);
+			@system("rm ./y2tb/lang/data.txt");
+			file_put_contents("./y2tb/lang/data.txt", $codel);
 		}
 	}
 	echo "\n".$green;
-	@system("rm ./vbln/lang/".$codel.".php");
-	@system("wget -P ./vbln/lang/ ".$langLink.$codel.".php", $exitcode);
+	@system("rm ./y2tb/lang/".$codel.".php");
+	@system("wget -P ./y2tb/lang/ ".$langLink.$codel.".php", $exitcode);
 	if($exitcode != 0) {
 		echo $cyan.$line2.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
 		exit();
 	}
-	include_once("./vbln/lang/".$codel.".php");
+	include_once("./y2tb/lang/".$codel.".php");
 	//banner
 	clear();
-	$banner = "                          ,--,                 \n                       ,---.'|            ,--. \n                ,---,. |   | :          ,--.'| \n       ,---.  ,'  .'  \\:   : |      ,--,:  : | \n      /__./|,---.' .' ||   ' :   ,`--.'`|  ' : \n ,---.;  ; ||   |  |: |;   ; '   |   :  :  | | \n/___/ \\  | |:   :  :  /'   | |__ :   |   \\ | : \n\\   ;  \\ ' |:   |    ; |   | :.'||   : '  '; | \n \\   \\  \\: ||   :     \\'   :    ;'   ' ;.    ; \n  ;   \\  ' .|   |   . ||   |  ./ |   | | \\   | \n   \\   \\   ''   :  '; |;   : ;   '   : |  ; .' \n    \\   `  ;|   |  | ; |   ,/    |   | '`--'   \n     :   \\ ||   :   /  '---'     '   : |       \n      '---\" |   | ,'             ;   |.'       \n            `----'               '---'         \n";
+	$banner = "&&&&      &&             %    &&&&\n&&&&&&     &&           %   &&&&&&\n&&&&&&&&    &&         %  &&&&&&&&\n&&&&&&&&     &&       %   &&&&&&&&\n&&&&&&&&&&    &&     %  &&&&&&&&&&\n  &&&&&&&&     &&       &&&&&&&&\n    &&&&&&&&    &&    &&&&&&&&\n    &&&&&&&&%%  ..  %%&&&&&&&&\n      ########      &&&&&&&&\n        ########  ####&&&&\n        ########  ########\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######";
 	echo $cyan.$banner;
 	//info
-	$bot_ver = "0.0.1 beta";
-	$tool_ver = "0.0.1";
+	$bot_ver = "1.0.1 beta";
+	$tool_ver = "0.0.2";
 	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
 	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
 	echo $magenta.$line1;
 	//menu
-    $linkmn = "https://raw.githubusercontent.com/HerokeyVN/VBLN_Bot_Termux/main/Termux/menu.php";
+    $linkmn = "https://raw.githubusercontent.com/HerokeyVN/Y2TB_Bot_Termux/main/Termux/menu.php";
 	if(file_exists("./menu.php")){
 		
 		print_delay($green.$lang["update_menu"]."", 250);
@@ -214,12 +214,12 @@
 	
 	print_delay($green.$lang["clone_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
+	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu.sh");
 	echo ("\n");
-	while(!file_exists("./ubuntu-fs/root/VBLN/main.js")){
+	while(!file_exists("./ubuntu-fs/root/Y2TB/main.js")){
 	    print_delay($green.$lang["botNotExit"]."\n", 250);
 	    echo $cyan.$line3.$green;
-	    @system("echo \"git clone https://github.com/VangBanLaNhat/VBLN-Bot-lite-noPanel && mv ./VBLN-Bot-lite-noPanel ./VBLN\"|bash ./start-ubuntu.sh");
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu.sh");
 	    echo ("\n");
 	}
 	print_delay($yellow.$lang["done"], 500);
@@ -228,9 +228,9 @@
 	
 	print_delay($green.$lang["package_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \nrm ./VBLN/package.json && echo rm ./VBLN/package-lock.json\n|bash ./start-ubuntu.sh");
-	@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package.json|bash ./start-ubuntu.sh");
-	//@system("echo wget -P ./VBLN https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
+	@system("echo \nrm ./Y2TB/package.json && echo rm ./Y2TB/package-lock.json\n|bash ./start-ubuntu.sh");
+	@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel/main/package.json|bash ./start-ubuntu.sh");
+	//@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -238,7 +238,7 @@
 	
 	print_delay($green.$lang["module_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"cd ./VBLN && npm i\"|bash ./start-ubuntu.sh");
+	@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
