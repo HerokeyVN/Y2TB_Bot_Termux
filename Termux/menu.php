@@ -78,7 +78,7 @@ function store() {
 		clear();
 		echo($green.$lang["pageLoad"]);
 		if (!array_key_exists($page, $totalList)) {
-			$json = file_get_contents("https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Plugin/PluginInfo.json?page=".$page);
+			$json = file_get_contents("https://raw.githubusercontent.com/VangBanLaNhat/Y2TB-data/main/PluginInfo.json?page=".$page);
 			$json = json_decode($json, true);
 			print_r($json);
 			//readline();
