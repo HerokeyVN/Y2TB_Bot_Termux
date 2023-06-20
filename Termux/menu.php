@@ -228,7 +228,7 @@ function ncf() {
 			$ss = $config["facebook"]["selfListen"] == true?$lang["on"]:$lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askSelf"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
 
-			$ch = $temp == "y"?true:false; $config["facebook"]["selfListen"] = $temp != ""?$ch:$temp;
+			$ch = $temp == "y"?true:false; $temp != ""?$config["facebook"]["selfListen"] = $ch:"";
 			$s = $config["facebook"]["selfListen"] == true?$lang["on"]:$lang["off"];
 			echo($cyan."\n".$lang["ySelf"].": ".$yellow.$s."\n");
 			echo($magenta.$line4);
