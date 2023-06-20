@@ -303,7 +303,7 @@ function avcf() {
 			$ss = $config["main_bot"]["developMode"] == true?$lang["on"]:$lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askDev"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
 
-			$ch = $temp == "y"?true:false; $config["main_bot"]["developMode"] = $temp != ""?$ch:$temp;
+			$ch = $temp == "y"?true:false; $temp != ""? $config["main_bot"]["developMode"] = $ch:"";
 			$s = $config["main_bot"]["developMode"] == true?$lang["on"]:$lang["off"];
 			echo($cyan."\n".$lang["yDev"].": ".$yellow.$s."\n");
 
@@ -311,7 +311,7 @@ function avcf() {
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
 			$ss = $config["main_bot"]["toggleLog"] == true?$lang["on"]:$lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askLog"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
-			$ch = $temp == "y"?true:false; $config["main_bot"]["toggleLog"] = $temp != ""?$ch:$temp;
+			$ch = $temp == "y"?true:false; $temp != ""?$config["main_bot"]["toggleLog"] = $ch:"";
 			$s = $config["main_bot"]["toggleLog"] == true?$lang["on"]:$lang["off"];
 			echo($cyan."\n".$lang["yLog"].": ".$yellow.$s."\n");
 
@@ -319,7 +319,7 @@ function avcf() {
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
 			$ss = $config["main_bot"]["toggleDebug"] == true?$lang["on"]:$lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askDebug"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
-			$ch = $temp == "y"?true:false; $config["main_bot"]["toggleDebug"] = $temp != ""?$ch:$temp;
+			$ch = $temp == "y"?true:false; $temp != ""?$config["main_bot"]["toggleDebug"] = $ch:"";
 			$s = $config["main_bot"]["toggleDebug"] == true?$lang["on"]:$lang["off"];
 			echo($cyan."\n".$lang["yDebug"].": ".$yellow.$s."\n");
 
