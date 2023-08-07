@@ -58,7 +58,7 @@
 	$banner = "&&&&      &&             %    &&&&\n&&&&&&     &&           %   &&&&&&\n&&&&&&&&    &&         %  &&&&&&&&\n&&&&&&&&     &&       %   &&&&&&&&\n&&&&&&&&&&    &&     %  &&&&&&&&&&\n  &&&&&&&&     &&       &&&&&&&&\n    &&&&&&&&    &&    &&&&&&&&\n    &&&&&&&&%%  ..  %%&&&&&&&&\n      ########      &&&&&&&&\n        ########  ####&&&&\n        ########  ########\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n          ######  ######\n";
 	echo $cyan.$banner;
 	//info
-	$bot_ver = "1.1.0";
+	$bot_ver = "1.1.2";
 	$tool_ver = "0.0.3";
 	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
 	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
@@ -188,7 +188,7 @@
 	print_delay($green.$lang["nodejs_install"]."\n", 250);
 	print_delay($yellow."124mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"curl -sL https://deb.nodesource.com/setup_16.x | bash && echo y|apt install -y nodejs && npm i -g npm@6\"|bash ./start-ubuntu.sh");
+	@system("echo \"curl -sL https://deb.nodesource.com/setup_18.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
