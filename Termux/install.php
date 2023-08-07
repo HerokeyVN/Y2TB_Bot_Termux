@@ -143,7 +143,7 @@
 	print_delay($green.$lang["update_pack"]."\n", 250);
 	print_delay($yellow."25mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"dpkg --configure -a && apt-get update\"|bash ./start-ubuntu.sh");
+	@system("echo \"dpkg --configure -a && apt-get update\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -152,7 +152,7 @@
 	print_delay($green.$lang["git_install"]."\n", 250);
 	print_delay($yellow."87mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install git\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install git\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -161,7 +161,7 @@
 	/*print_delay($green.$lang["php_install"]."\n", 250);
 	print_delay($yellow."66mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install php\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install php\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -170,7 +170,7 @@
 	print_delay($green.$lang["wget_install"]."\n", 250);
 	//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install wget\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install wget\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -179,8 +179,8 @@
 	print_delay($green.$lang["curl_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install curl\"|bash ./start-ubuntu.sh");
-	@system("echo \"echo y|apt install curl build-essential\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install curl\"|bash ./start-ubuntu20.sh");
+	@system("echo \"echo y|apt install curl build-essential\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -189,7 +189,7 @@
 	print_delay($green.$lang["nodejs_install"]."\n", 250);
 	print_delay($yellow."124mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"curl -sL https://deb.nodesource.com/setup_18.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu.sh");
+	@system("echo \"curl -sL https://deb.nodesource.com/setup_18.x | bash && echo y|apt install -y nodejs\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -198,7 +198,7 @@
 	print_delay($green.$lang["gcc_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install gcc g++ make zip\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install gcc g++ make zip\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -207,7 +207,7 @@
 	print_delay($green.$lang["gnu_install"]."\n", 250);
 	print_delay($yellow."156mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"echo y|apt install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev\"|bash ./start-ubuntu.sh");
+	@system("echo \"echo y|apt install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -215,12 +215,12 @@
 	
 	print_delay($green.$lang["clone_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu.sh");
+	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	while(!file_exists("./ubuntu-fs/root/Y2TB/main.js")){
 	    print_delay($green.$lang["botNotExit"]."\n", 250);
 	    echo $cyan.$line3.$green;
-	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu.sh");
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
 	    echo ("\n");
 	}
 	print_delay($yellow.$lang["done"], 500);
@@ -229,9 +229,9 @@
 	
 	print_delay($green.$lang["package_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \nrm ./Y2TB/package.json && echo rm ./Y2TB/package-lock.json\n|bash ./start-ubuntu.sh");
-	@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel/main/package.json|bash ./start-ubuntu.sh");
-	//@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu.sh");
+	@system("echo \nrm ./Y2TB/package.json && echo rm ./Y2TB/package-lock.json\n|bash ./start-ubuntu20.sh");
+	@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel/main/package.json|bash ./start-ubuntu20.sh");
+	//@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -239,7 +239,7 @@
 	
 	print_delay($green.$lang["module_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu.sh");
+	@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
