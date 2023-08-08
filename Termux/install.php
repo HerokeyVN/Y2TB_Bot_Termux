@@ -217,7 +217,7 @@
 	echo $cyan.$line3.$green;
 	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
-	while(!file_exists("./ubuntu-fs/root/Y2TB/main.js")){
+	while(!file_exists("./ubuntu20-fs/root/Y2TB/main.js")){
 	    print_delay($green.$lang["botNotExit"]."\n", 250);
 	    echo $cyan.$line3.$green;
 	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
