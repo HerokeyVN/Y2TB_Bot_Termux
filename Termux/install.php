@@ -143,7 +143,7 @@
 	print_delay($green.$lang["update_pack"]."\n", 250);
 	print_delay($yellow."25mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("bash ./start-ubuntu20.sh dpkg --configure -a && apt -y update");
+	@system("./start-ubuntu20.sh dpkg --configure -a && apt update && apt upgrade");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
