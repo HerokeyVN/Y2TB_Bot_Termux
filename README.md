@@ -1,4 +1,4 @@
-# Y2TB_Bot_Termux
+# Y2TB Bot Termux
 
 1. Download Termux at: https://f-droid.org/repo/com.termux_118.apk
 
