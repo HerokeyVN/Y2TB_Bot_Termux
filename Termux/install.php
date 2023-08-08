@@ -188,7 +188,7 @@
 	print_delay($green.$lang["nodejs_install"]."\n", 250);
 	print_delay($yellow."124mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("./start-ubuntu20.sh curl -sL https://deb.nodesource.com/setup_18.x | bash && apt -y install nodejs");
+	@system("echo \"curl -sL https://deb.nodesource.com/setup_18.x | bash && apt -y install nodejs\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -214,12 +214,12 @@
 	
 	print_delay($green.$lang["clone_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("./start-ubuntu20.sh git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB");
+	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	while(!file_exists("./ubuntu-fs/root/Y2TB/main.js")){
 	    print_delay($green.$lang["botNotExit"]."\n", 250);
 	    echo $cyan.$line3.$green;
-	    @system("./start-ubuntu20.sh git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB");
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && mv ./Y2TB-Bot-lite-noPanel ./Y2TB\"|bash ./start-ubuntu20.sh");
 	    echo ("\n");
 	}
 	print_delay($yellow.$lang["done"], 500);
@@ -238,7 +238,7 @@
 	
 	print_delay($green.$lang["module_bot"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("./start-ubuntu20.sh cd ./Y2TB && npm i");
+	@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
