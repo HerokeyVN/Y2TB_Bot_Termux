@@ -197,7 +197,7 @@
 	print_delay($green.$lang["gcc_install"]."\n", 250);
 	print_delay($yellow."143mb".$lang["use_mem"]."\n", 250);
 	echo $cyan.$line3.$green;
-	@system("./start-ubuntu20.sh \"apt -y install gcc g++ make zip rename\"");
+	@system("./start-ubuntu20.sh \"apt -y install gcc g++ make zip rsync\"");
 	echo ("\n");
 	print_delay($yellow.$lang["done"], 500);
 	sleep(1);
@@ -220,7 +220,7 @@
 	while(!file_exists("./ubuntu-fs/root/Y2TB/main.js")){
 	    print_delay($green.$lang["botNotExit"]."\n", 250);
 	    echo $cyan.$line3.$green;
-	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && rename ./Y2TB-Bot-lite-noPanel ./Y2TB && rm -r ./Y2TB-Bot-lite-noPanel\"|bash ./start-ubuntu20.sh");
+	    @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot-lite-noPanel && rsync -a Y2TB-Bot-lite-noPanel/ Y2TB/ && rm -r ./Y2TB-Bot-lite-noPanel\"|bash ./start-ubuntu20.sh");
 	    echo ("\n");
 	}
 	print_delay($yellow.$lang["done"], 500);
