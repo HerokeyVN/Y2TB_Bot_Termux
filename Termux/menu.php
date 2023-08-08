@@ -31,7 +31,7 @@ function start() {
 	clear();
 	print_delay($yellow.$lang["stop"]."\n", 250);
 	echo($line2.$default);
-	@system("bash ./start-ubuntu.sh \"cd Y2TB && npm start\"");
+	@system("bash ./start-ubuntu20.sh \"cd Y2TB && npm start\"");
 	readline($yellow.$lang["press_enter"]);
 }
 $id = 0;
