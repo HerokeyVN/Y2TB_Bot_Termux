@@ -71,7 +71,7 @@ function store() {
 	$page = 1;
 	$total = 0;
 	$totalList = [];
-	$GLOBALS["listInstall"] = json_decode(file_get_contents("./ubuntu-fs/root/Y2TB/plugins/pluginList.json"), true);
+	$GLOBALS["listInstall"] = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/plugins/pluginList.json"), true);
 	while ($check) {
 		$GLOBALS["LNI"] = [];
 		$id = 0;
@@ -97,7 +97,7 @@ function store() {
 		if ($in == 0) break;
 		if (array_key_exists($in-1, $GLOBALS["LNI"])) {
 			$GLOBALS["listInstall"] += [$GLOBALS["LNI"][$in-1][0] => $GLOBALS["LNI"][$in-1][1]];
-			if (file_put_contents("./ubuntu-fs/root/Y2TB/plugins/pluginList.json", json_encode($GLOBALS["listInstall"]))) {
+			if (file_put_contents("./ubuntu20-fs/root/Y2TB/plugins/pluginList.json", json_encode($GLOBALS["listInstall"]))) {
 				echo($magenta.$line4);
 				echo($yellow.$lang["PID"]."\n");
 				sleep(2);
@@ -125,7 +125,7 @@ function manager() {
 	$red,
 	$line4,
 	$id;
-	$GLOBALS["listInstall"] = json_decode(file_get_contents("./ubuntu-fs/root/Y2TB/plugins/pluginList.json"), true);
+	$GLOBALS["listInstall"] = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/plugins/pluginList.json"), true);
 	$chID = 0;
 	$page = 1;
 	$maxValue = 5;
@@ -155,7 +155,7 @@ function manager() {
 				if ($inp == "y") {
 					unset($GLOBALS["listInstall"][$listkey[$chID-1]]);
 					unset($listkey[$chID-1]);
-					file_put_contents("./ubuntu-fs/root/Y2TB/plugins/pluginList.json", json_encode($GLOBALS["listInstall"]));
+					file_put_contents("./ubuntu20-fs/root/Y2TB/plugins/pluginList.json", json_encode($GLOBALS["listInstall"]));
 					$chID = 0;
 				}
 			}
@@ -190,14 +190,14 @@ function ncf() {
 	$line4,
 	$codel,
 	$id;
-	if (!file_exists("./ubuntu-fs/root/Y2TB/udata/config.json")) {
-		$dfcf = file_get_contents("./ubuntu-fs/root/Y2TB/core/util/defaultConfig.js");
+	if (!file_exists("./ubuntu20-fs/root/Y2TB/udata/config.json")) {
+		$dfcf = file_get_contents("./ubuntu20-fs/root/Y2TB/core/util/defaultConfig.js");
 		$dfcf = (explode("return", $dfcf))[1];
 		$dfcf = (explode("}\n\nfunction", $dfcf))[0];
-		system("mkdir -p ./ubuntu-fs/root/Y2TB/udata/ && >./ubuntu-fs/root/Y2TB/udata/config.json");
-		file_put_contents("./ubuntu-fs/root/Y2TB/udata/config.json", $dfcf);
+		system("mkdir -p ./ubuntu20-fs/root/Y2TB/udata/ && >./ubuntu20-fs/root/Y2TB/udata/config.json");
+		file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", $dfcf);
 	}
-	$config = json_decode(file_get_contents("./ubuntu-fs/root/Y2TB/udata/config.json"), true);
+	$config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/udata/config.json"), true);
 	while (true) {
 		clear();
 		echo($cyan.$lang["mn_4"]."\n");
@@ -235,7 +235,7 @@ function ncf() {
 			$temp = strtolower(readline($cyan.$lang["sSave"]." (y/n): ".$yellow));
 			if ($temp == "n") break;
 
-			file_put_contents("./ubuntu-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
+			file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
 			print_delay($green."\n".$lang["saveSuccess"], 250);
 			sleep(1);
 			return;
@@ -264,14 +264,14 @@ function avcf() {
 	$red,
 	$line4,
 	$id;
-	if (!file_exists("./ubuntu-fs/root/Y2TB/core/coreconfig.json")) {
-		$dfcf = file_get_contents("./ubuntu-fs/root/Y2TB/core/util/defaultConfig.js");
+	if (!file_exists("./ubuntu20-fs/root/Y2TB/core/coreconfig.json")) {
+		$dfcf = file_get_contents("./ubuntu20-fs/root/Y2TB/core/util/defaultConfig.js");
 		$dfcf = (explode("return", $dfcf))[2];
 		$dfcf = (explode("}\n\nmodule", $dfcf))[0];
-		system("mkdir -p ./ubuntu-fs/root/Y2TB/udata/ && >./ubuntu-fs/root/Y2TB/core/coreconfig.json");
-		file_put_contents("./ubuntu-fs/root/Y2TB/core/coreconfig.json", $dfcf);
+		system("mkdir -p ./ubuntu20-fs/root/Y2TB/udata/ && >./ubuntu20-fs/root/Y2TB/core/coreconfig.json");
+		file_put_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json", $dfcf);
 	}
-	$config = json_decode(file_get_contents("./ubuntu-fs/root/Y2TB/core/coreconfig.json"), true);
+	$config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json"), true);
 	while (true) {
 		clear();
 		echo($cyan.$lang["mn_5"]."\n");
@@ -333,7 +333,7 @@ function avcf() {
 			$temp = strtolower(readline($cyan.$lang["sSave"]." (y/n): ".$yellow));
 			if ($temp == "n") break;
 
-			file_put_contents("./ubuntu-fs/root/Y2TB/core/coreconfig.json", json_encode($config, JSON_PRETTY_PRINT));
+			file_put_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json", json_encode($config, JSON_PRETTY_PRINT));
 			print_delay($green."\n".$lang["saveSuccess"], 250);
 			sleep(1);
 			return;
@@ -399,19 +399,19 @@ function sync() {
 				echo($green.$lang["crFdSync"].": ".$green.$dir."\n");
 				echo($green.$lang["stSyncFrUbuntu"]."...\n");
 				system("mkdir -p ".$dir."Y2TB/");
-				$temp = getListFile("./ubuntu-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
-				$temp2 = getListFile("./ubuntu-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+				$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
+				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
 				foreach ($temp2["folder"] as $i) system("cp -r ".$i." ".$dir."Y2TB/");
-				system("cp -r ./ubuntu-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata");
+				system("cp -r ./ubuntu20-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata");
 				echo($yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"])-7)." file & ".(count($temp["folder"]))." folder\n\n");
 				readline($default.$lang["please"].$lang["press_enter"]);
 			} else {
 				echo($green.$lang["stSyncFrStorage"]."...\n\n");
 				$temp = getListFile($dir."Y2TB/", true, ["node_modules", "core", ".git"]);
-				$temp2 = getListFile("./ubuntu-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
 				foreach ($temp2["folder"] as $i) system("rm -r ".$i);
 				$temp2 = getListFile($dir."Y2TB/", false, ["node_modules", "core", ".git"]);
-				foreach ($temp2["folder"] as $i) system("cp -r ".$i." ./ubuntu-fs/root/Y2TB");
+				foreach ($temp2["folder"] as $i) system("cp -r ".$i." ./ubuntu20-fs/root/Y2TB");
 				//echo("                                                 \r");
 				foreach ($temp["file"] as $i) echo($yellow.$lang["syncDataFile"].": ".$green.$i."\n");
 				echo("\n".$yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"]))." file & ".(count($temp["folder"]))." folder\n\n");
@@ -428,10 +428,10 @@ function sync() {
 			echo($green.$lang["stSyncFrUbuntu"]."...\n");
 			if (file_exists($dir."Y2TB/")) system("rm -r ".$dir."Y2TB/");
 			system("mkdir -p ".$dir."Y2TB/");
-			$temp = getListFile("./ubuntu-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
-			$temp2 = getListFile("./ubuntu-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+			$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
+			$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
 			foreach ($temp2["folder"] as $i) system("cp -r ".$i." ".$dir."Y2TB/");
-			system("cp -r ./ubuntu-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata/");
+			system("cp -r ./ubuntu20-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata/");
 			echo($yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"])-7)." file & ".(count($temp["folder"]))." folder\n\n");
 			readline($default.$lang["please"].$lang["press_enter"]);
 		} elseif ($act == 3) {
