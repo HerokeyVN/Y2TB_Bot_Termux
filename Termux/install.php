@@ -47,7 +47,8 @@
 	}
 	echo "\n".$green;
 	@system("rm ./y2tb/lang/".$codel.".php");
-	@system("wget -P ./y2tb/lang/ ".$langLink.$codel.".php", $exitcode);
+ @system("curl ".$langLink.$codel.".php --output ./y2tb/lang/".$codel.".php", $exitcode);
+//	@system("wget -P ./y2tb/lang/ ".$langLink.$codel.".php", $exitcode);
 	if($exitcode != 0) {
 		echo $cyan.$line2.$red."Can't connect to Github.com. Please check the internet and try again late!\n";
 		exit();
