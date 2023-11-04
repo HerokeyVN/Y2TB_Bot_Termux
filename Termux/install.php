@@ -60,7 +60,7 @@
 	echo $cyan.$banner;
 	//info
 	$bot_ver = "1.1.2";
-	$tool_ver = "0.0.4";
+	$tool_ver = "0.0.5";
 	boxe([$lang["version"].$tool_ver, $lang["sp_ver"].$bot_ver], $light_red, $light_cyan);
 	boxe([$lang["cre"], $lang["product"], $lang["m_info"], $lang["thanks"]], $light_green, $white);
 	echo $magenta.$line1;
