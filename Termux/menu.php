@@ -205,7 +205,8 @@ function ncf() {
 		echo($cyan.$lang["continue"]."\n\n".$yellow);
 		echo("1. ".$lang["normal_edit"]."\n");
 		echo("2. ".$lang["admin_edit"]."\n");
-		echo("3. ".$lang["advan_edit"]."\n");
+		echo("3. ".$lang["add_fbstate"]."\n");
+		echo("4. ".$lang["advan_edit"]."\n");
 		echo("0. ".$lang["return"]."\n");
 		echo($magenta.$line4);
 		$act = (int) (readline($cyan.$lang["choose"].$yellow));
@@ -270,8 +271,44 @@ function ncf() {
     			}
     			file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
             }
-		};
+		}
 		if ($act == 3) {
+			clear();
+			echo($cyan.$lang["add_fbstate"]."\n");
+			echo($magenta.$line4);
+			
+			$fbs = readline($cyan.$lang["paste_fbstate"].$lang["press_enter"].": \n".$yellow);
+			
+			$fbstate = json_decode($fbs, true);
+			
+			if($fbstate) {
+			    clear();
+			    echo($yellow.$fbs."\n");
+			    echo($magenta.$line4);
+			    $temp = strtolower(readline($cyan.$lang["sure_fbstate"].": ".$yellow));
+			    
+			    echo($magenta.$line4);
+
+			    if ($temp == "n") {
+			        print_delay($yellow.$lang["cancelled"], 250); break;
+			        sleep(1);
+			    }
+			    
+			    file_put_contents("./ubuntu20-fs/root/Y2TB/udata/fbstate.json", json_encode($fbstate, JSON_PRETTY_PRINT));
+			    
+			    print_delay($yellow.$lang["done"], 250);
+			    sleep(1);
+			} else {
+			    echo($magenta.$line4);
+			    print_delay($red.$lang["illegal_fbstate"], 250);
+
+			    sleep(1);
+			}
+			
+			
+			return;
+		};
+		if ($act == 4) {
 			clear();
 			echo($cyan.$lang["mn_4"]."\n");
 			echo($magenta.$line4);
