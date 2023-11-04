@@ -204,7 +204,8 @@ function ncf() {
 		echo($magenta.$line4);
 		echo($cyan.$lang["continue"]."\n\n".$yellow);
 		echo("1. ".$lang["normal_edit"]."\n");
-		echo("2. ".$lang["advan_edit"]."\n");
+		echo("2. ".$lang["admin_edit"]."\n");
+		echo("3. ".$lang["advan_edit"]."\n");
 		echo("0. ".$lang["return"]."\n");
 		echo($magenta.$line4);
 		$act = (int) (readline($cyan.$lang["choose"].$yellow));
@@ -241,6 +242,36 @@ function ncf() {
 			return;
 		}
 		if ($act == 2) {
+            $config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/udata/config.json"), true);
+            while(true) {
+                clear();
+    			echo($cyan.$lang["admin_edit"]."\n");
+    			echo($magenta.$line4);
+    			echo($cyan.$lang["list_admin"].":\n".$yellow);
+    			//for($i = 0; $i<array_count_values($config["facebook"]["admin"])
+    		    foreach ($config["facebook"]["admin"] as $i => $admin) {
+    		        echo(($i+1).". ".$admin."\n");
+    		    }
+    			echo($magenta.$line4);
+    			echo($yellow."* ".$green.$lang["edit_admin"]."\n\n");
+    			$inp = (int) readline($cyan.$lang["edit_ad_in"].": ".$yellow);
+    			if ($inp == 0) break;
+    			if ($inp > 0 && $inp <= count($config["facebook"]["admin"])) {
+    			    echo($magenta.$line4);
+    			    $temp = strtolower(readline($cyan.$lang["rm_ad_sure"].$yellow.$config["facebook"]["admin"][$inp-1].$cyan." (y/n): ".$yellow));
+			        if ($temp == "y") {
+			            unset($config["facebook"]["admin"][$inp-1]);
+			        }  
+    			}
+    			else if ($inp > count($config["facebook"]["admin"])) {
+    			    echo($magenta.$line4);
+    			    $adm = readline($cyan.$lang["add_admin"].": ".$yellow);
+    			    $config["facebook"]["admin"][] = $adm;
+    			}
+    			file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
+            }
+		};
+		if ($act == 3) {
 			clear();
 			echo($cyan.$lang["mn_4"]."\n");
 			echo($magenta.$line4);
@@ -248,7 +279,7 @@ function ncf() {
 			readline($yellow."\n".$lang["press_enter"]);
 			return;
 		};
-		break;
+		
 	}
 }
 
