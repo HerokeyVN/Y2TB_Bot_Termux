@@ -294,6 +294,10 @@ function ncf() {
 			        sleep(1);
 			    }
 			    
+			    if (!file_exists("./ubuntu20-fs/root/Y2TB/udata/fbstate.json")) {
+			        system(">./ubuntu20-fs/root/Y2TB/udata/fbstate.json");
+			    }
+			    
 			    file_put_contents("./ubuntu20-fs/root/Y2TB/udata/fbstate.json", json_encode($fbstate, JSON_PRETTY_PRINT));
 			    
 			    print_delay($yellow.$lang["done"], 250);
