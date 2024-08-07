@@ -99,8 +99,8 @@ function store() {
 			$GLOBALS["listInstall"] += [$GLOBALS["LNI"][$in-1][0] => $GLOBALS["LNI"][$in-1][1]];
 			if (file_put_contents("./ubuntu20-fs/root/Y2TB/plugins/pluginList.json", json_encode($GLOBALS["listInstall"]))) {
 				echo($magenta.$line4);
-				echo($yellow.$lang["PID"]."\n");
-				sleep(2);
+				//echo($yellow.$lang["PID"]."\n");
+				//sleep(2);
 			} else {
 				echo($magenta.$line4);
 				echo($red.$lang["PIF"]."\n");
