@@ -1,4 +1,74 @@
 <?php
+function readEnv($filePath) {
+	if (!file_exists($filePath)) {
+		return [];
+	}
+	$lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	$env = [];
+	foreach ($lines as $line) {
+		$line = trim($line);
+		if ($line === '' || strpos($line, '#') === 0) {
+			continue;
+		}
+		$parts = explode('=', $line, 2);
+		if (count($parts) === 2) {
+			$key = trim($parts[0]);
+			$val = trim($parts[1]);
+			if (preg_match('/^"([^"]*)"$/', $val, $matches) || preg_match('/^\'([^\']*)\'$/', $val, $matches)) {
+				$val = $matches[1];
+			}
+			$env[$key] = $val;
+		}
+	}
+	return $env;
+}
+
+function writeEnv($filePath, $newValues) {
+	$examplePath = str_replace('config.env', 'config.env.example', $filePath);
+	if (!file_exists($filePath)) {
+		if (file_exists($examplePath)) {
+			copy($examplePath, $filePath);
+		} else {
+			touch($filePath);
+		}
+	}
+	$lines = file($filePath, FILE_IGNORE_NEW_LINES);
+	$output = [];
+	$keysUpdated = [];
+	foreach ($lines as $line) {
+		$trimmed = trim($line);
+		if ($trimmed === '' || strpos($trimmed, '#') === 0) {
+			$output[] = $line;
+			continue;
+		}
+		$parts = explode('=', $line, 2);
+		if (count($parts) === 2) {
+			$key = trim($parts[0]);
+			if (array_key_exists($key, $newValues)) {
+				$val = $newValues[$key];
+				if (is_bool($val)) {
+					$val = $val ? 'true' : 'false';
+				}
+				$output[] = $key . '=' . $val;
+				$keysUpdated[$key] = true;
+			} else {
+				$output[] = $line;
+			}
+		} else {
+			$output[] = $line;
+		}
+	}
+	foreach ($newValues as $key => $val) {
+		if (!isset($keysUpdated[$key])) {
+			if (is_bool($val)) {
+				$val = $val ? 'true' : 'false';
+			}
+			$output[] = $key . '=' . $val;
+		}
+	}
+	file_put_contents($filePath, implode("\n", $output) . "\n");
+}
+
 function ex() {
         global $yellow;
 	clear();
@@ -190,15 +260,20 @@ function ncf() {
 	$line4,
 	$codel,
 	$id;
-	if (!file_exists("./ubuntu20-fs/root/Y2TB/udata/config.json")) {
-		$dfcf = file_get_contents("./ubuntu20-fs/root/Y2TB/core/util/defaultConfig.js");
-		$dfcf = (explode("return", $dfcf))[1];
-		$dfcf = (explode("}\n\nfunction", $dfcf))[0];
-		system("mkdir -p ./ubuntu20-fs/root/Y2TB/udata/ && >./ubuntu20-fs/root/Y2TB/udata/config.json");
-		file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", $dfcf);
+
+	$envPath = "./ubuntu20-fs/root/Y2TB/config/config.env";
+	$envExamplePath = "./ubuntu20-fs/root/Y2TB/config/config.env.example";
+	if (!file_exists($envPath)) {
+		if (file_exists($envExamplePath)) {
+			system("mkdir -p ./ubuntu20-fs/root/Y2TB/config");
+			copy($envExamplePath, $envPath);
+		} else {
+			system("mkdir -p ./ubuntu20-fs/root/Y2TB/config && >" . $envPath);
+		}
 	}
-	$config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/udata/config.json"), true);
+
 	while (true) {
+		$configEnv = readEnv($envPath);
 		clear();
 		echo($cyan.$lang["mn_4"]."\n");
 		echo($magenta.$line4);
@@ -213,64 +288,86 @@ function ncf() {
 		if ($act == 0) return;
 		if ($act == 1) {
 			clear();
-			$config["bot_info"]["lang"] = $codel;
+			$currentBotname = isset($configEnv["Y2TB_CFG_BOT_INFO_BOTNAME"]) ? $configEnv["Y2TB_CFG_BOT_INFO_BOTNAME"] : "Y2TBbot";
+			$currentPrefix = isset($configEnv["Y2TB_CFG_FACEBOOK_PREFIX"]) ? $configEnv["Y2TB_CFG_FACEBOOK_PREFIX"] : "/";
+			$currentSelfListen = isset($configEnv["Y2TB_CFG_FACEBOOK_SELFLISTEN"]) ? $configEnv["Y2TB_CFG_FACEBOOK_SELFLISTEN"] : "false";
+
 			echo($cyan.$lang["mn_4"]."\n");
 			echo($magenta.$line4);
-			$temp = readline($cyan.$lang["askName"]." (".$yellow.$config["bot_info"]["botname"].$cyan."): ".$yellow);
-			$config["bot_info"]["botname"] = $temp != ""?$temp:$config["bot_info"]["botname"];
-			echo($cyan."\n".$lang["yName"].": ".$yellow.$config["bot_info"]["botname"]."\n");
+			$temp = readline($cyan.$lang["askName"]." (".$yellow.$currentBotname.$cyan."): ".$yellow);
+			$newBotname = $temp != "" ? $temp : $currentBotname;
+			echo($cyan."\n".$lang["yName"].": ".$yellow.$newBotname."\n");
 
 			echo($magenta.$line4);
-			$temp = readline($cyan.$lang["askPrefix"]." (".$yellow.$config["facebook"]["prefix"].$cyan."): ".$yellow);
-			$config["facebook"]["prefix"] = $temp != ""?$temp:$config["facebook"]["prefix"];
-			echo($cyan."\n".$lang["yPrefix"].": ".$yellow.$config["facebook"]["prefix"]."\n");
+			$temp = readline($cyan.$lang["askPrefix"]." (".$yellow.$currentPrefix.$cyan."): ".$yellow);
+			$newPrefix = $temp != "" ? $temp : $currentPrefix;
+			echo($cyan."\n".$lang["yPrefix"].": ".$yellow.$newPrefix."\n");
 
 			echo($magenta.$line4);
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
-			$ss = $config["facebook"]["selfListen"] == true?$lang["on"]:$lang["off"];
+			$ss = ($currentSelfListen === "true" || $currentSelfListen === true) ? $lang["on"] : $lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askSelf"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
 
-			$ch = $temp == "y"?true:false; $temp != ""?$config["facebook"]["selfListen"] = $ch:"";
-			$s = $config["facebook"]["selfListen"] == true?$lang["on"]:$lang["off"];
+			if ($temp == "y") {
+				$newSelfListen = "true";
+			} elseif ($temp == "n") {
+				$newSelfListen = "false";
+			} else {
+				$newSelfListen = $currentSelfListen;
+			}
+			$s = ($newSelfListen === "true") ? $lang["on"] : $lang["off"];
 			echo($cyan."\n".$lang["ySelf"].": ".$yellow.$s."\n");
+
 			echo($magenta.$line4);
 			$temp = strtolower(readline($cyan.$lang["sSave"]." (y/n): ".$yellow));
 			if ($temp == "n") break;
 
-			file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
+			$configEnv["Y2TB_CFG_BOT_INFO_BOTNAME"] = $newBotname;
+			$configEnv["Y2TB_CFG_FACEBOOK_PREFIX"] = $newPrefix;
+			$configEnv["Y2TB_CFG_FACEBOOK_SELFLISTEN"] = $newSelfListen;
+			$configEnv["Y2TB_CFG_BOT_INFO_LANG"] = $codel;
+
+			writeEnv($envPath, $configEnv);
 			print_delay($green."\n".$lang["saveSuccess"], 250);
 			sleep(1);
 			return;
 		}
 		if ($act == 2) {
-            $config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/udata/config.json"), true);
-            while(true) {
-                clear();
-    			echo($cyan.$lang["admin_edit"]."\n");
-    			echo($magenta.$line4);
-    			echo($cyan.$lang["list_admin"].":\n".$yellow);
-    			//for($i = 0; $i<array_count_values($config["facebook"]["admin"])
-    		    foreach ($config["facebook"]["admin"] as $i => $admin) {
-    		        echo(($i+1).". ".$admin."\n");
-    		    }
-    			echo($magenta.$line4);
-    			echo($yellow."* ".$green.$lang["edit_admin"]."\n\n");
-    			$inp = (int) readline($cyan.$lang["edit_ad_in"].": ".$yellow);
-    			if ($inp == 0) break;
-    			if ($inp > 0 && $inp <= count($config["facebook"]["admin"])) {
-    			    echo($magenta.$line4);
-    			    $temp = strtolower(readline($cyan.$lang["rm_ad_sure"].$yellow.$config["facebook"]["admin"][$inp-1].$cyan." (y/n): ".$yellow));
-			        if ($temp == "y") {
-			            unset($config["facebook"]["admin"][$inp-1]);
-			        }  
-    			}
-    			else if ($inp > count($config["facebook"]["admin"])) {
-    			    echo($magenta.$line4);
-    			    $adm = readline($cyan.$lang["add_admin"].": ".$yellow);
-    			    $config["facebook"]["admin"][] = $adm;
-    			}
-    			file_put_contents("./ubuntu20-fs/root/Y2TB/udata/config.json", json_encode($config, JSON_PRETTY_PRINT));
-            }
+			while(true) {
+				$configEnv = readEnv($envPath);
+				$adminVal = isset($configEnv["Y2TB_CFG_FACEBOOK_ADMIN"]) ? $configEnv["Y2TB_CFG_FACEBOOK_ADMIN"] : "[]";
+				$adminArr = json_decode($adminVal, true);
+				if (!is_array($adminArr)) {
+					$adminArr = [];
+				}
+				clear();
+				echo($cyan.$lang["admin_edit"]."\n");
+				echo($magenta.$line4);
+				echo($cyan.$lang["list_admin"].":\n".$yellow);
+				foreach ($adminArr as $i => $admin) {
+					echo(($i+1).". ".$admin."\n");
+				}
+				echo($magenta.$line4);
+				echo($yellow."* ".$green.$lang["edit_admin"]."\n\n");
+				$inp = (int) readline($cyan.$lang["edit_ad_in"].": ".$yellow);
+				if ($inp == 0) break;
+				if ($inp > 0 && $inp <= count($adminArr)) {
+					echo($magenta.$line4);
+					$temp = strtolower(readline($cyan.$lang["rm_ad_sure"].$yellow.$adminArr[$inp-1].$cyan." (y/n): ".$yellow));
+					if ($temp == "y") {
+						unset($adminArr[$inp-1]);
+					}  
+				}
+				else if ($inp > count($adminArr)) {
+					echo($magenta.$line4);
+					$adm = readline($cyan.$lang["add_admin"].": ".$yellow);
+					if (trim($adm) != "") {
+						$adminArr[] = trim($adm);
+					}
+				}
+				$configEnv["Y2TB_CFG_FACEBOOK_ADMIN"] = json_encode(array_values($adminArr));
+				writeEnv($envPath, $configEnv);
+			}
 		}
 		if ($act == 3) {
 			clear();
@@ -278,38 +375,34 @@ function ncf() {
 			echo($magenta.$line4);
 			
 			$fbs = readline($cyan.$lang["paste_fbstate"].$lang["press_enter"].": \n".$yellow);
-			
 			$fbstate = json_decode($fbs, true);
 			
 			if($fbstate) {
-			    clear();
-			    echo($yellow.$fbs."\n");
-			    echo($magenta.$line4);
-			    $temp = strtolower(readline($cyan.$lang["sure_fbstate"].": ".$yellow));
-			    
-			    echo($magenta.$line4);
+				clear();
+				echo($yellow.$fbs."\n");
+				echo($magenta.$line4);
+				$temp = strtolower(readline($cyan.$lang["sure_fbstate"].": ".$yellow));
+				
+				echo($magenta.$line4);
 
-			    if ($temp == "n") {
-			        print_delay($yellow.$lang["cancelled"], 250); break;
-			        sleep(1);
-			    }
-			    
-			    if (!file_exists("./ubuntu20-fs/root/Y2TB/udata/fbstate.json")) {
-			        system(">./ubuntu20-fs/root/Y2TB/udata/fbstate.json");
-			    }
-			    
-			    file_put_contents("./ubuntu20-fs/root/Y2TB/udata/fbstate.json", json_encode($fbstate, JSON_PRETTY_PRINT));
-			    
-			    print_delay($yellow.$lang["done"], 250);
-			    sleep(1);
+				if ($temp == "n") {
+					print_delay($yellow.$lang["cancelled"], 250); break;
+					sleep(1);
+				}
+				
+				if (!file_exists("./ubuntu20-fs/root/Y2TB/config/fbstate.json")) {
+					system("mkdir -p ./ubuntu20-fs/root/Y2TB/config && >./ubuntu20-fs/root/Y2TB/config/fbstate.json");
+				}
+				
+				file_put_contents("./ubuntu20-fs/root/Y2TB/config/fbstate.json", json_encode($fbstate, JSON_PRETTY_PRINT));
+				
+				print_delay($yellow.$lang["done"], 250);
+				sleep(1);
 			} else {
-			    echo($magenta.$line4);
-			    print_delay($red.$lang["illegal_fbstate"], 250);
-
-			    sleep(1);
+				echo($magenta.$line4);
+				print_delay($red.$lang["illegal_fbstate"], 250);
+				sleep(1);
 			}
-			
-			
 			return;
 		};
 		if ($act == 4) {
@@ -320,7 +413,6 @@ function ncf() {
 			readline($yellow."\n".$lang["press_enter"]);
 			return;
 		};
-		
 	}
 }
 
@@ -336,15 +428,20 @@ function avcf() {
 	$red,
 	$line4,
 	$id;
-	if (!file_exists("./ubuntu20-fs/root/Y2TB/core/coreconfig.json")) {
-		$dfcf = file_get_contents("./ubuntu20-fs/root/Y2TB/core/util/defaultConfig.js");
-		$dfcf = (explode("return", $dfcf))[2];
-		$dfcf = (explode("}\n\nmodule", $dfcf))[0];
-		system("mkdir -p ./ubuntu20-fs/root/Y2TB/udata/ && >./ubuntu20-fs/root/Y2TB/core/coreconfig.json");
-		file_put_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json", $dfcf);
+
+	$envPath = "./ubuntu20-fs/root/Y2TB/config/config.env";
+	$envExamplePath = "./ubuntu20-fs/root/Y2TB/config/config.env.example";
+	if (!file_exists($envPath)) {
+		if (file_exists($envExamplePath)) {
+			system("mkdir -p ./ubuntu20-fs/root/Y2TB/config");
+			copy($envExamplePath, $envPath);
+		} else {
+			system("mkdir -p ./ubuntu20-fs/root/Y2TB/config && >" . $envPath);
+		}
 	}
-	$config = json_decode(file_get_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json"), true);
+
 	while (true) {
+		$configEnv = readEnv($envPath);
 		clear();
 		echo($cyan.$lang["mn_5"]."\n");
 		echo($magenta.$line4);
@@ -357,55 +454,80 @@ function avcf() {
 		if ($act == 0) return;
 		if ($act == 1) {
 			clear();
+			$currentDataSaveTime = isset($configEnv["Y2TB_CORE_MAIN_BOT_DATASAVETIME"]) ? $configEnv["Y2TB_CORE_MAIN_BOT_DATASAVETIME"] : "5";
+			$currentDevelopMode = isset($configEnv["Y2TB_CORE_MAIN_BOT_DEVELOPMODE"]) ? $configEnv["Y2TB_CORE_MAIN_BOT_DEVELOPMODE"] : "false";
+			$currentToggleLog = isset($configEnv["Y2TB_CORE_MAIN_BOT_TOGGLELOG"]) ? $configEnv["Y2TB_CORE_MAIN_BOT_TOGGLELOG"] : "true";
+			$currentToggleDebug = isset($configEnv["Y2TB_CORE_MAIN_BOT_TOGGLEDEBUG"]) ? $configEnv["Y2TB_CORE_MAIN_BOT_TOGGLEDEBUG"] : "false";
+			$currentUserAgent = isset($configEnv["Y2TB_CORE_FACEBOOK_USERAGENT"]) ? $configEnv["Y2TB_CORE_FACEBOOK_USERAGENT"] : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36";
+
 			echo($cyan.$lang["mn_5"]."\n");
 			echo($magenta.$line4);
-			echo($cyan.$lang["linkCl"].": ".$green."https://upload.wikimedia.org/wikipedia/commons/3/34/ANSI_sample_program_output.png\n\n");
-			$tcl = "\033[".$config["main_bot"]["consoleColor"]."m";
-			$temp = (int) readline($cyan.$lang["askCColor"]." (".$tcl.$config["main_bot"]["consoleColor"].$cyan."): ".$yellow);
-			$config["main_bot"]["consoleColor"] = $temp != 0?$temp:$config["main_bot"]["consoleColor"];
-			echo($cyan."\n".$lang["yCColor"].": "."\033[".$config["main_bot"]["consoleColor"]."m".$config["main_bot"]["consoleColor"]."\n");
-
-			echo($magenta.$line4);
-			$temp = readline($cyan.$lang["askTimeSaveData"]." (".$yellow.$config["main_bot"]["dataSaveTime"].$cyan."): ".$yellow);
-			$config["main_bot"]["dataSaveTime"] = $temp != ""?$temp:$config["main_bot"]["dataSaveTime"];
-			echo($cyan."\n".$lang["yTimeSaveData"].": ".$yellow.$config["main_bot"]["dataSaveTime"]."\n");
+			$temp = readline($cyan.$lang["askTimeSaveData"]." (".$yellow.$currentDataSaveTime.$cyan."): ".$yellow);
+			$newDataSaveTime = $temp != "" ? $temp : $currentDataSaveTime;
+			echo($cyan."\n".$lang["yTimeSaveData"].": ".$yellow.$newDataSaveTime."\n");
 
 			echo($magenta.$line4);
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
-			$ss = $config["main_bot"]["developMode"] == true?$lang["on"]:$lang["off"];
+			$ss = ($currentDevelopMode === "true" || $currentDevelopMode === true) ? $lang["on"] : $lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askDev"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
 
-			$ch = $temp == "y"?true:false; $temp != ""? $config["main_bot"]["developMode"] = $ch:"";
-			$s = $config["main_bot"]["developMode"] == true?$lang["on"]:$lang["off"];
+			if ($temp == "y") {
+				$newDevelopMode = "true";
+			} elseif ($temp == "n") {
+				$newDevelopMode = "false";
+			} else {
+				$newDevelopMode = $currentDevelopMode;
+			}
+			$s = ($newDevelopMode === "true") ? $lang["on"] : $lang["off"];
 			echo($cyan."\n".$lang["yDev"].": ".$yellow.$s."\n");
 
 			echo($magenta.$line4);
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
-			$ss = $config["main_bot"]["toggleLog"] == true?$lang["on"]:$lang["off"];
+			$ss = ($currentToggleLog === "true" || $currentToggleLog === true) ? $lang["on"] : $lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askLog"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
-			$ch = $temp == "y"?true:false; $temp != ""?$config["main_bot"]["toggleLog"] = $ch:"";
-			$s = $config["main_bot"]["toggleLog"] == true?$lang["on"]:$lang["off"];
+
+			if ($temp == "y") {
+				$newToggleLog = "true";
+			} elseif ($temp == "n") {
+				$newToggleLog = "false";
+			} else {
+				$newToggleLog = $currentToggleLog;
+			}
+			$s = ($newToggleLog === "true") ? $lang["on"] : $lang["off"];
 			echo($cyan."\n".$lang["yLog"].": ".$yellow.$s."\n");
 
 			echo($magenta.$line4);
 			$s = " [".$yellow."y ".$cyan."(".$lang["on"]."); ".$yellow."n ".$cyan."(".$lang["off"].")"."]";
-			$ss = $config["main_bot"]["toggleDebug"] == true?$lang["on"]:$lang["off"];
+			$ss = ($currentToggleDebug === "true" || $currentToggleDebug === true) ? $lang["on"] : $lang["off"];
 			$temp = strtolower(readline($cyan.$lang["askDebug"].$s." (".$yellow.$ss.$cyan."): ".$yellow));
-			$ch = $temp == "y"?true:false; $temp != ""?$config["main_bot"]["toggleDebug"] = $ch:"";
-			$s = $config["main_bot"]["toggleDebug"] == true?$lang["on"]:$lang["off"];
+
+			if ($temp == "y") {
+				$newToggleDebug = "true";
+			} elseif ($temp == "n") {
+				$newToggleDebug = "false";
+			} else {
+				$newToggleDebug = $currentToggleDebug;
+			}
+			$s = ($newToggleDebug === "true") ? $lang["on"] : $lang["off"];
 			echo($cyan."\n".$lang["yDebug"].": ".$yellow.$s."\n");
 
 			echo($magenta.$line4);
-			echo($cyan.$lang["nUserAgent"].": ".$yellow.$config["facebook"]["userAgent"]."\n\n");
+			echo($cyan.$lang["nUserAgent"].": ".$yellow.$currentUserAgent."\n\n");
 			$temp = readline($cyan.$lang["askUserAgent"].": ".$yellow);
-			$config["facebook"]["userAgent"] = $temp != ""?$temp:$config["facebook"]["userAgent"];
-			echo($cyan."\n".$lang["yUserAgent"].": ".$yellow.$config["facebook"]["userAgent"]."\n");
+			$newUserAgent = $temp != "" ? $temp : $currentUserAgent;
+			echo($cyan."\n".$lang["yUserAgent"].": ".$yellow.$newUserAgent."\n");
 
 			echo($magenta.$line4);
 			$temp = strtolower(readline($cyan.$lang["sSave"]." (y/n): ".$yellow));
 			if ($temp == "n") break;
 
-			file_put_contents("./ubuntu20-fs/root/Y2TB/core/coreconfig.json", json_encode($config, JSON_PRETTY_PRINT));
+			$configEnv["Y2TB_CORE_MAIN_BOT_DATASAVETIME"] = $newDataSaveTime;
+			$configEnv["Y2TB_CORE_MAIN_BOT_DEVELOPMODE"] = $newDevelopMode;
+			$configEnv["Y2TB_CORE_MAIN_BOT_TOGGLELOG"] = $newToggleLog;
+			$configEnv["Y2TB_CORE_MAIN_BOT_TOGGLEDEBUG"] = $newToggleDebug;
+			$configEnv["Y2TB_CORE_FACEBOOK_USERAGENT"] = $newUserAgent;
+
+			writeEnv($envPath, $configEnv);
 			print_delay($green."\n".$lang["saveSuccess"], 250);
 			sleep(1);
 			return;
@@ -471,18 +593,17 @@ function sync() {
 				echo($green.$lang["crFdSync"].": ".$green.$dir."\n");
 				echo($green.$lang["stSyncFrUbuntu"]."...\n");
 				system("mkdir -p ".$dir."Y2TB/");
-				$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
-				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+				$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", ".git", "logs"]);
+				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", ".git", "logs"]);
 				foreach ($temp2["folder"] as $i) system("cp -r ".$i." ".$dir."Y2TB/");
-				system("cp -r ./ubuntu20-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata");
 				echo($yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"])-7)." file & ".(count($temp["folder"]))." folder\n\n");
 				readline($default.$lang["please"].$lang["press_enter"]);
 			} else {
 				echo($green.$lang["stSyncFrStorage"]."...\n\n");
-				$temp = getListFile($dir."Y2TB/", true, ["node_modules", "core", ".git"]);
-				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+				$temp = getListFile($dir."Y2TB/", true, ["node_modules", ".git", "logs"]);
+				$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", ".git", "logs"]);
 				foreach ($temp2["folder"] as $i) system("rm -r ".$i);
-				$temp2 = getListFile($dir."Y2TB/", false, ["node_modules", "core", ".git"]);
+				$temp2 = getListFile($dir."Y2TB/", false, ["node_modules", ".git", "logs"]);
 				foreach ($temp2["folder"] as $i) system("cp -r ".$i." ./ubuntu20-fs/root/Y2TB");
 				//echo("                                                 \r");
 				foreach ($temp["file"] as $i) echo($yellow.$lang["syncDataFile"].": ".$green.$i."\n");
@@ -500,10 +621,9 @@ function sync() {
 			echo($green.$lang["stSyncFrUbuntu"]."...\n");
 			if (file_exists($dir."Y2TB/")) system("rm -r ".$dir."Y2TB/");
 			system("mkdir -p ".$dir."Y2TB/");
-			$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", "core", ".git"]);
-			$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", "core", ".git"]);
+			$temp = getListFile("./ubuntu20-fs/root/Y2TB", true, ["node_modules", ".git", "logs"]);
+			$temp2 = getListFile("./ubuntu20-fs/root/Y2TB", false, ["node_modules", ".git", "logs"]);
 			foreach ($temp2["folder"] as $i) system("cp -r ".$i." ".$dir."Y2TB/");
-			system("cp -r ./ubuntu20-fs/root/Y2TB/core/coreconfig.json ".$dir."Y2TB/udata/");
 			echo($yellow.$lang["syncTotal"].": ".$cyan.(count($temp["file"])-7)." file & ".(count($temp["folder"]))." folder\n\n");
 			readline($default.$lang["please"].$lang["press_enter"]);
 		} elseif ($act == 3) {
