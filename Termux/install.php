@@ -200,7 +200,7 @@ clear();
 print_delay($green . $lang["nodejs_install"] . "\n", 250);
 print_delay($yellow . "124mb" . $lang["use_mem"] . "\n", 250);
 echo $cyan . $line3 . $green;
-@system("echo \"curl -sL https://deb.nodesource.com/setup_18.x | bash && apt -y install nodejs\"|bash ./start-ubuntu20.sh");
+@system("echo \"curl -fsSL https://deb.nodesource.com/setup_22.x | bash && apt -y install nodejs\"|bash ./start-ubuntu20.sh");
 echo ("\n");
 print_delay($yellow . $lang["done"], 500);
 sleep(1);
