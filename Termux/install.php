@@ -229,7 +229,7 @@ print_delay($green . $lang["clone_bot"] . "\n", 250);
 echo $cyan . $line3 . $green;
 @system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot && mv ./Y2TB-Bot ./Y2TB\"|bash ./start-ubuntu20.sh");
 echo ("\n");
-while (!file_exists("./ubuntu20-fs/root/Y2TB/main.js")) {
+while (!file_exists("./ubuntu20-fs/root/Y2TB/src/main.js")) {
 	print_delay($green . $lang["botNotExit"] . "\n", 250);
 	echo $cyan . $line3 . $green;
 	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot && mv ./Y2TB-Bot ./Y2TB\"|bash ./start-ubuntu20.sh");
@@ -241,9 +241,7 @@ clear();
 
 print_delay($green . $lang["package_bot"] . "\n", 250);
 echo $cyan . $line3 . $green;
-//@system("echo \nrm ./Y2TB/package.json && echo rm ./Y2TB/package-lock.json\n|bash ./start-ubuntu20.sh");
-//@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Y2TB-Bot/main/package.json|bash ./start-ubuntu20.sh");
-//@system("echo wget -P ./Y2TB https://raw.githubusercontent.com/VangBanLaNhat/Package-for-VangBanLaNhatBot/main/Termux/package-lock.json|bash ./start-ubuntu20.sh");
+
 echo ("\n");
 print_delay($yellow . $lang["done"], 500);
 sleep(1);
