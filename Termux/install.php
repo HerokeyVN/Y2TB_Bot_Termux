@@ -140,120 +140,129 @@ else {
 }
 
 //install
-clear();
-print_delay($lang["linux_install"] . "\n", 500);
-print_delay($yellow . "250mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-sleep(1);
-//pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu20/ubuntu20.sh -O ubuntu20.sh && chmod +x ubuntu20.sh && bash ubuntu20.sh
-@system("echo \"deb https://termux.mentality.rip/termux-main stable main\" > \$PREFIX/etc/apt/sources.list && cat \$PREFIX/etc/apt/sources.list && pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu20/ubuntu20.sh -O ubuntu20.sh && chmod +x ubuntu20.sh && echo exit|bash ubuntu20.sh");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!file_exists("./start-ubuntu20.sh")) {
+	clear();
+	print_delay($lang["linux_install"] . "\n", 500);
+	print_delay($yellow . "250mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	sleep(1);
+	//pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu20/ubuntu20.sh -O ubuntu20.sh && chmod +x ubuntu20.sh && bash ubuntu20.sh
+	@system("echo \"deb https://termux.mentality.rip/termux-main stable main\" > \$PREFIX/etc/apt/sources.list && cat \$PREFIX/etc/apt/sources.list && pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu20/ubuntu20.sh -O ubuntu20.sh && chmod +x ubuntu20.sh && echo exit|bash ubuntu20.sh");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["update_pack"] . "\n", 250);
-print_delay($yellow . "25mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("echo \"dpkg --configure -a && apt update -y && apt upgrade -y\"|bash ./start-ubuntu20.sh");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+$allPackagesInstalled = isInstalledInUbuntu("git") && isInstalledInUbuntu("wget") && isInstalledInUbuntu("curl") && isInstalledInUbuntu("node") && isInstalledInUbuntu("gcc");
+if (!$allPackagesInstalled) {
+	print_delay($green . $lang["update_pack"] . "\n", 250);
+	print_delay($yellow . "25mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("echo \"dpkg --configure -a && apt update -y && apt upgrade -y\"|bash ./start-ubuntu20.sh");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["git_install"] . "\n", 250);
-print_delay($yellow . "87mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("./start-ubuntu20.sh apt -y install git");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!isInstalledInUbuntu("git")) {
+	print_delay($green . $lang["git_install"] . "\n", 250);
+	print_delay($yellow . "87mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("./start-ubuntu20.sh apt -y install git");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-/*print_delay($green.$lang["php_install"]."\n", 250);
- print_delay($yellow."66mb".$lang["use_mem"]."\n", 250);
- echo $cyan.$line3.$green;
- @system("echo \"echo y|apt install php\"|bash ./start-ubuntu20.sh");
- echo ("\n");
- print_delay($yellow.$lang["done"], 500);
- sleep(1);
- clear();*/
+if (!isInstalledInUbuntu("wget")) {
+	print_delay($green . $lang["wget_install"] . "\n", 250);
+	//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("./start-ubuntu20.sh apt -y install wget");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["wget_install"] . "\n", 250);
-//print_delay($yellow."5mb".$lang["use_mem"]."\n", 250);
-echo $cyan . $line3 . $green;
-@system("./start-ubuntu20.sh apt -y install wget");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!isInstalledInUbuntu("curl")) {
+	print_delay($green . $lang["curl_install"] . "\n", 250);
+	print_delay($yellow . "143mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("./start-ubuntu20.sh apt -y install curl");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["curl_install"] . "\n", 250);
-print_delay($yellow . "143mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("./start-ubuntu20.sh apt -y install curl");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!isInstalledInUbuntu("node")) {
+	print_delay($green . $lang["nodejs_install"] . "\n", 250);
+	print_delay($yellow . "124mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("echo \"curl -fsSL https://deb.nodesource.com/setup_22.x | bash && apt -y install nodejs\"|bash ./start-ubuntu20.sh");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["nodejs_install"] . "\n", 250);
-print_delay($yellow . "124mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("echo \"curl -fsSL https://deb.nodesource.com/setup_22.x | bash && apt -y install nodejs\"|bash ./start-ubuntu20.sh");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!isInstalledInUbuntu("gcc")) {
+	print_delay($green . $lang["gcc_install"] . "\n", 250);
+	print_delay($yellow . "143mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("./start-ubuntu20.sh \"apt -y install gcc g++ make zip\"");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
 
-print_delay($green . $lang["gcc_install"] . "\n", 250);
-print_delay($yellow . "143mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("./start-ubuntu20.sh \"apt -y install gcc g++ make zip\"");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+	print_delay($green . $lang["gnu_install"] . "\n", 250);
+	print_delay($yellow . "156mb" . $lang["use_mem"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("./start-ubuntu20.sh \"DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata\"");
+	@system("./start-ubuntu20.sh \"apt -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev\"");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
-print_delay($green . $lang["gnu_install"] . "\n", 250);
-print_delay($yellow . "156mb" . $lang["use_mem"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("./start-ubuntu20.sh \"DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata\"");
-@system("./start-ubuntu20.sh \"apt -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev\"");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
-
-print_delay($green . $lang["clone_bot"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot && mv ./Y2TB-Bot ./Y2TB\"|bash ./start-ubuntu20.sh");
-echo ("\n");
-while (!file_exists("./ubuntu20-fs/root/Y2TB/src/main.js")) {
-	print_delay($green . $lang["botNotExit"] . "\n", 250);
+if (!file_exists("./ubuntu20-fs/root/Y2TB/src/main.js")) {
+	print_delay($green . $lang["clone_bot"] . "\n", 250);
 	echo $cyan . $line3 . $green;
 	@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot && mv ./Y2TB-Bot ./Y2TB\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
+	while (!file_exists("./ubuntu20-fs/root/Y2TB/src/main.js")) {
+		print_delay($green . $lang["botNotExit"] . "\n", 250);
+		echo $cyan . $line3 . $green;
+		@system("echo \"git clone https://github.com/VangBanLaNhat/Y2TB-Bot && mv ./Y2TB-Bot ./Y2TB\"|bash ./start-ubuntu20.sh");
+		echo ("\n");
+	}
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
 }
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
 
 print_delay($green . $lang["package_bot"] . "\n", 250);
 echo $cyan . $line3 . $green;
-
 echo ("\n");
 print_delay($yellow . $lang["done"], 500);
 sleep(1);
 clear();
 
-print_delay($green . $lang["module_bot"] . "\n", 250);
-echo $cyan . $line3 . $green;
-@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu20.sh");
-echo ("\n");
-print_delay($yellow . $lang["done"], 500);
-sleep(1);
-clear();
+if (!file_exists("./ubuntu20-fs/root/Y2TB/node_modules")) {
+	print_delay($green . $lang["module_bot"] . "\n", 250);
+	echo $cyan . $line3 . $green;
+	@system("echo \"cd ./Y2TB && npm i\"|bash ./start-ubuntu20.sh");
+	echo ("\n");
+	print_delay($yellow . $lang["done"], 500);
+	sleep(1);
+	clear();
+}
 
 print_delay($green . $lang["update_menu"], 250);
 print_delay("..", 500);
@@ -291,5 +300,14 @@ function getMem()
 		else if (strpos($i, '%'))
 			array_push($temp, $i);
 	return $temp;
+}
+function isInstalledInUbuntu($command) {
+	if (!file_exists("./start-ubuntu20.sh")) {
+		return false;
+	}
+	$output = [];
+	$retval = 0;
+	exec("./start-ubuntu20.sh which " . escapeshellarg($command), $output, $retval);
+	return $retval === 0;
 }
 ?>
