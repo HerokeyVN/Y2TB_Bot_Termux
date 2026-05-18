@@ -257,7 +257,7 @@ clear();
 if (!file_exists("./ubuntu20-fs/root/Y2TB/node_modules")) {
 	print_delay($green . $lang["module_bot"] . "\n", 250);
 	echo $cyan . $line3 . $green;
-	@system("echo \"cd ./Y2TB && yarn install\"|bash ./start-ubuntu20.sh");
+	@system("echo \"cd ./Y2TB && npm install -g corepack && yarn install\"|bash ./start-ubuntu20.sh");
 	echo ("\n");
 	print_delay($yellow . $lang["done"], 500);
 	sleep(1);
